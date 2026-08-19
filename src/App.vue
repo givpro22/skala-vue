@@ -13,6 +13,8 @@ import DirectiveVShow from './components/practices/directive/DirectiveVShow.vue'
 import DirectiveVFor from './components/practices/directive/DirectiveVFor.vue'
 import DirectiveVPre from './components/practices/directive/DirectiveVPre.vue'
 import DirectiveVCloak from './components/practices/directive/DirectiveVCloak.vue'
+import DirectiveVOnce from './components/practices/directive/DirectiveVOnce.vue'
+import DirectiveVMemo from './components/practices/directive/DirectiveVMemo.vue'
 </script>
 
 <template>
@@ -31,5 +33,7 @@ import DirectiveVCloak from './components/practices/directive/DirectiveVCloak.vu
     <DirectiveVFor />
     <DirectiveVPre />
     <DirectiveVCloak />
+    <DirectiveVOnce />
+    <DirectiveVMemo />
   </div>
 </template>
