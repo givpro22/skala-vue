@@ -1,4 +1,5 @@
 <script setup>
+import WeatherMockup from './components/exercise/WeatherMockup.vue'
 import SampleOne from './components/practices/basic/SampleOne.vue'
 import SampleTwo from './components/practices/basic/SampleTwo.vue'
 import DirectiveVHtml from './components/practices/directive/DirectiveVHtml.vue'
@@ -26,6 +27,8 @@ import StyleSample from './components/practices/style/StyleSample.vue'
 
 <template>
   <div style="padding: 20px">
+    <WeatherMockup />
+
     <SampleOne />
     <SampleTwo />
     <DirectiveVHtml />

@@ -40,3 +40,19 @@ http://localhost:5173
 - v-model 수식어 (p110-112): `.lazy`, `.number`, `.trim`과 체이닝 적용 결과와 타입 변화 확인
 - Vue Style (p113-114): `scoped`로 적용 범위를 컴포넌트 내부로 제한, `@import`로 외부 CSS 연결
 - Code Challenge (p115): 폼 바인딩 3종과 스타일 실습 파일 확인
+
+#### Hands on - Weather Mockup (p116)
+
+`src/components/exercise/WeatherMockup.vue`
+
+- 도시 6곳의 날씨 배열을 v-for로 카드 출력하고 `:key`에 id 바인딩
+- 기온 25도 기준으로 더움과 선선함 라벨을 v-if로 분기
+- 도시 검색 입력은 `:value` + `@input`으로 처리해 한글 조합 중 입력이 끊기지 않게 함
+- 카드를 누르면 상태바에 선택 도시를 표시하고, 상세보기 버튼은 `@click.stop`으로 버블링을 막고 alert 출력
+
+개인 추가
+
+- 체감온도, 습도, 풍속 항목 추가
+- 도시 3곳 추가 (광주, 강릉, 제주)
+- 선택한 카드를 클래스 바인딩으로 강조
+- 카드별 즐겨찾기 토글
