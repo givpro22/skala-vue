@@ -40,6 +40,15 @@ http://localhost:5173
 - v-model 수식어 (p110-112): `.lazy`, `.number`, `.trim`과 체이닝 적용 결과와 타입 변화 확인
 - Vue Style (p113-114): `scoped`로 적용 범위를 컴포넌트 내부로 제한, `@import`로 외부 CSS 연결
 - Code Challenge (p115): 폼 바인딩 3종과 스타일 실습 파일 확인
+- Composition API 개요 (p117-120): `<script setup>`에 데이터와 로직을 모아 쓰는 방식, `createApp()`의 전역 등록 역할 확인
+- ref (p121-122): 원시값과 배열, 객체를 감싸 반응형으로 만들고 스크립트에서는 `.value`로 접근
+- reactive (p123-124): 객체와 배열 전용 반응형. 통째로 재할당하면 반응성이 끊겨 push, splice로 다룸
+- Code Challenge (p126): ref, reactive 실습 파일 확인
+- computed (p127-129): 의존 데이터가 바뀔 때만 재계산되는 캐싱 동작을 일반 함수와 비교
+- watch (p130-133): 단일 변수 감시와 배열로 묶은 다중 소스 감시
+- watch deep (p134-139): `deep: true`로 객체 전체 감시, 특정 속성을 조준해야 이전 값이 보존되는 차이 확인
+- watchEffect (p141-142): 대상 지정 없이 내부에서 접근한 반응형 데이터를 자동 추적, 최초 1회 즉시 실행
+- Code Challenge (p144): computed, watch 실습 6종 파일 확인
 
 #### Hands on - Weather Mockup (p116)
 
