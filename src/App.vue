@@ -18,6 +18,10 @@ import DirectiveVMemo from './components/practices/directive/DirectiveVMemo.vue'
 import EventHandler from './components/practices/event/EventHandler.vue'
 import EventObject from './components/practices/event/EventObject.vue'
 import EventModifier from './components/practices/event/EventModifier.vue'
+import FormBinding from './components/practices/form/FormBinding.vue'
+import FormElements from './components/practices/form/FormElements.vue'
+import FormModifiers from './components/practices/form/FormModifiers.vue'
+import StyleSample from './components/practices/style/StyleSample.vue'
 </script>
 
 <template>
@@ -41,5 +45,9 @@ import EventModifier from './components/practices/event/EventModifier.vue'
     <EventHandler />
     <EventObject />
     <EventModifier />
+    <FormBinding />
+    <FormElements />
+    <FormModifiers />
+    <StyleSample />
   </div>
 </template>

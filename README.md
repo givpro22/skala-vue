@@ -35,3 +35,8 @@ http://localhost:5173
 - 이벤트 객체 (p97-100): 인자 없이 받는 방식과 `$event`로 데이터와 함께 넘기는 방식으로 좌표, 클릭된 태그 확인
 - 이벤트 수식어 (p101-104): `.prevent`로 링크 기본 이동 차단, `.stop`으로 버블링 차단
 - Code Challenge (p105): 이벤트 실습 3종 파일 확인
+- v-model 양방향 바인딩 (p106): v-model 축약형과 `:value` + `@input`으로 분해한 형태를 나란히 비교
+- 폼 요소 매핑 (p107-109): textarea, 단일 및 다중 checkbox, radio, select별로 ref 초기값 타입을 맞춰 바인딩
+- v-model 수식어 (p110-112): `.lazy`, `.number`, `.trim`과 체이닝 적용 결과와 타입 변화 확인
+- Vue Style (p113-114): `scoped`로 적용 범위를 컴포넌트 내부로 제한, `@import`로 외부 CSS 연결
+- Code Challenge (p115): 폼 바인딩 3종과 스타일 실습 파일 확인
