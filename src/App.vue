@@ -15,6 +15,9 @@ import DirectiveVPre from './components/practices/directive/DirectiveVPre.vue'
 import DirectiveVCloak from './components/practices/directive/DirectiveVCloak.vue'
 import DirectiveVOnce from './components/practices/directive/DirectiveVOnce.vue'
 import DirectiveVMemo from './components/practices/directive/DirectiveVMemo.vue'
+import EventHandler from './components/practices/event/EventHandler.vue'
+import EventObject from './components/practices/event/EventObject.vue'
+import EventModifier from './components/practices/event/EventModifier.vue'
 </script>
 
 <template>
@@ -35,5 +38,8 @@ import DirectiveVMemo from './components/practices/directive/DirectiveVMemo.vue'
     <DirectiveVCloak />
     <DirectiveVOnce />
     <DirectiveVMemo />
+    <EventHandler />
+    <EventObject />
+    <EventModifier />
   </div>
 </template>
