@@ -1,5 +1,6 @@
 <script setup>
 import WeatherMockup from './components/exercise/WeatherMockup.vue'
+import WeatherComposition from './components/exercise/WeatherComposition.vue'
 import SampleOne from './components/practices/basic/SampleOne.vue'
 import SampleTwo from './components/practices/basic/SampleTwo.vue'
 import DirectiveVHtml from './components/practices/directive/DirectiveVHtml.vue'
@@ -35,7 +36,16 @@ import WatchEffectSample from './components/practices/composition/WatchEffectSam
 
 <template>
   <div style="padding: 20px">
+    <h1>⛅ 과제 1: 날씨 (Mockup)</h1>
+    <hr />
     <WeatherMockup />
+
+    <h1>⛅ 과제 2: 날씨 (컴포지션)</h1>
+    <hr />
+    <WeatherComposition />
+
+    <h1>문법 실습</h1>
+    <hr />
 
     <SampleOne />
     <SampleTwo />

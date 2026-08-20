@@ -89,8 +89,6 @@ const toggleFavorite = (city) => {
 
 <template>
   <div class="weather-mockup">
-    <h1>⛅ 과제 1: 날씨 (Mockup)</h1>
-
     <h2>지역별 날씨 현황</h2>
 
     <div class="search-box">
