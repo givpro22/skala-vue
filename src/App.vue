@@ -39,6 +39,9 @@ import PropsSample from './components/practices/component/PropsSample.vue'
 import EmitsSample from './components/practices/component/EmitsSample.vue'
 import PropsEmitsParent from './components/practices/component/PropsEmitsParent.vue'
 import ProvideRoot from './components/practices/component/ProvideRoot.vue'
+import SlotDefaultParent from './components/practices/component/SlotDefaultParent.vue'
+import SlotNamedParent from './components/practices/component/SlotNamedParent.vue'
+import SlotScopedParent from './components/practices/component/SlotScopedParent.vue'
 </script>
 
 <template>
@@ -92,5 +95,8 @@ import ProvideRoot from './components/practices/component/ProvideRoot.vue'
     <EmitsSample />
     <PropsEmitsParent />
     <ProvideRoot />
+    <SlotDefaultParent />
+    <SlotNamedParent />
+    <SlotScopedParent />
   </div>
 </template>

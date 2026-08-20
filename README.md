@@ -91,7 +91,7 @@ http://localhost:5173
 - 표시 중인 도시의 평균 기온을 computed로 계산
 - 즐겨찾기 개수는 computed로 계산하고 그 값의 변화는 watch로 감시
 
-#### 문법 실습 (p146-172)
+#### 문법 실습 (p146-177)
 
 - 컴포넌트 지역 등록 (p146-149): 부모가 자식을 import하면 PascalCase와 kebab-case 둘 다로 쓸 수 있다
 - 컴포넌트 전역 등록 (p150-151): main.js에서 `app.component()`로 올려두면 어느 파일에서든 import 없이 쓴다
@@ -101,3 +101,5 @@ http://localhost:5173
 - Emits (p165-168): 자식이 이벤트에 데이터를 실어 올리면 부모가 받아서 자기 상태를 고친다
 - Provide, Inject (p169-171): 중간 컴포넌트를 건너뛰고 조상이 내려둔 값을 바로 꺼내 쓰는 방식
 - Code Challenge (p172): Props, Emits 실습 파일
+- Slot (p173-176): props가 데이터를 넘긴다면 slot은 마크업 자체를 넘긴다. 이름 없는 기본 슬롯, 자리를 여러 개 둔 이름 슬롯, 자식이 가진 데이터를 부모가 받아 그리는 스코프 슬롯 세 가지
+- Code Challenge (p177): Slot 실습 파일
