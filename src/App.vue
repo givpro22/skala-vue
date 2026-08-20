@@ -35,6 +35,10 @@ import WatchEffectSample from './components/practices/composition/WatchEffectSam
 import ComponentLocal from './components/practices/component/ComponentLocal.vue'
 import ComponentGlobal from './components/practices/component/ComponentGlobal.vue'
 import LifecycleDemo from './components/practices/component/LifecycleDemo.vue'
+import PropsSample from './components/practices/component/PropsSample.vue'
+import EmitsSample from './components/practices/component/EmitsSample.vue'
+import PropsEmitsParent from './components/practices/component/PropsEmitsParent.vue'
+import ProvideRoot from './components/practices/component/ProvideRoot.vue'
 </script>
 
 <template>
@@ -84,5 +88,9 @@ import LifecycleDemo from './components/practices/component/LifecycleDemo.vue'
     <ComponentLocal />
     <ComponentGlobal />
     <LifecycleDemo />
+    <PropsSample />
+    <EmitsSample />
+    <PropsEmitsParent />
+    <ProvideRoot />
   </div>
 </template>
