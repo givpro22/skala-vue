@@ -32,6 +32,9 @@ import WatchMulti from './components/practices/composition/WatchMulti.vue'
 import WatchDeep from './components/practices/composition/WatchDeep.vue'
 import WatchReactive from './components/practices/composition/WatchReactive.vue'
 import WatchEffectSample from './components/practices/composition/WatchEffectSample.vue'
+import ComponentLocal from './components/practices/component/ComponentLocal.vue'
+import ComponentGlobal from './components/practices/component/ComponentGlobal.vue'
+import LifecycleDemo from './components/practices/component/LifecycleDemo.vue'
 </script>
 
 <template>
@@ -78,5 +81,8 @@ import WatchEffectSample from './components/practices/composition/WatchEffectSam
     <WatchDeep />
     <WatchReactive />
     <WatchEffectSample />
+    <ComponentLocal />
+    <ComponentGlobal />
+    <LifecycleDemo />
   </div>
 </template>

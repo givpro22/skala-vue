@@ -15,6 +15,8 @@ http://localhost:5173
 
 ### 1일차 (2026-08-18)
 
+#### 문법 실습 (p48-81)
+
 - 프로젝트 생성 (p48-56): Vite 기반 Vue 3, Router / Pinia / ESLint / Prettier 포함
 - 프로젝트 구조 확인 (p58-62): index.html에서 main.js로, main.js에서 App.vue로 진입 경로가 이어진다
 - App.vue 구성 (p68-69): 기본 스캐폴딩 화면을 비우고 실습 컴포넌트를 갈아 끼우는 구조로 교체. 실습 파일은 `src/components/practices/` 아래로 분류해 뒀다
@@ -24,6 +26,8 @@ http://localhost:5173
 - v-bind (p77-81): href, src, disabled 동적 바인딩에 클래스 바인딩, 스타일 바인딩까지
 
 ### 2일차 (2026-08-19)
+
+#### 문법 실습 (p83-115)
 
 - v-bind 단축 문법 (p83): 변수명과 HTML 속성명이 같을 때 `:id`, `:src`로 축약
 - v-if, v-show (p84-86): 조건부 렌더링과 조건부 가시성. DOM에서 아예 지우는 쪽과 display none으로 숨기는 쪽을 비교했다
@@ -40,15 +44,6 @@ http://localhost:5173
 - v-model 수식어 (p110-112): `.lazy`, `.number`, `.trim`과 체이닝을 적용했을 때의 결과와 타입 변화를 확인했다
 - Vue Style (p113-114): `scoped`로 적용 범위를 컴포넌트 내부로 제한하고 `@import`로 외부 CSS 연결
 - Code Challenge (p115): 폼 바인딩 3종, 스타일 실습 파일
-- Composition API 개요 (p117-120): `<script setup>`에 데이터와 로직을 모아 쓰는 방식. `createApp()`이 맡는 전역 등록 역할도 확인했다
-- ref (p121-122): 원시값과 배열, 객체를 감싸 반응형으로 만들고 스크립트에서는 `.value`로 접근
-- reactive (p123-124): 객체와 배열 전용 반응형. 통째로 재할당하면 반응성이 끊겨 push, splice로 다룸
-- Code Challenge (p126): ref, reactive 실습 파일
-- computed (p127-129): 의존 데이터가 바뀔 때만 재계산되는 캐싱 동작을 일반 함수와 비교
-- watch (p130-133): 단일 변수 하나만 감시하다가 배열로 묶어 다중 소스까지 감시
-- watch deep (p134-139): `deep: true`로 객체 전체를 감시했다. 특정 속성을 조준해야 이전 값이 보존되는 차이도 확인
-- watchEffect (p141-142): 대상 지정 없이 내부에서 접근한 반응형 데이터를 자동 추적한다. 최초 1회는 즉시 실행
-- Code Challenge (p144): computed, watch 실습 6종 파일 확인
 
 #### 과제 1: Weather Mockup (p116)
 
@@ -65,6 +60,18 @@ http://localhost:5173
 - 도시 3곳 추가 (광주, 강릉, 제주)
 - 선택한 카드를 클래스 바인딩으로 강조
 - 카드별 즐겨찾기 토글
+
+#### 문법 실습 (p117-144)
+
+- Composition API 개요 (p117-120): `<script setup>`에 데이터와 로직을 모아 쓰는 방식. `createApp()`이 맡는 전역 등록 역할도 확인했다
+- ref (p121-122): 원시값과 배열, 객체를 감싸 반응형으로 만들고 스크립트에서는 `.value`로 접근
+- reactive (p123-124): 객체와 배열 전용 반응형. 통째로 재할당하면 반응성이 끊겨 push, splice로 다룸
+- Code Challenge (p126): ref, reactive 실습 파일
+- computed (p127-129): 의존 데이터가 바뀔 때만 재계산되는 캐싱 동작을 일반 함수와 비교
+- watch (p130-133): 단일 변수 하나만 감시하다가 배열로 묶어 다중 소스까지 감시
+- watch deep (p134-139): `deep: true`로 객체 전체를 감시했다. 특정 속성을 조준해야 이전 값이 보존되는 차이도 확인
+- watchEffect (p141-142): 대상 지정 없이 내부에서 접근한 반응형 데이터를 자동 추적한다. 최초 1회는 즉시 실행
+- Code Challenge (p144): computed, watch 실습 6종 파일 확인
 
 ### 3일차 (2026-08-20)
 
@@ -83,3 +90,10 @@ http://localhost:5173
 - 25도 이상만 보기 체크박스를 반응형 상태로 추가하고 검색어와 함께 필터에 반영
 - 표시 중인 도시의 평균 기온을 computed로 계산
 - 즐겨찾기 개수는 computed로 계산하고 그 값의 변화는 watch로 감시
+
+#### 문법 실습 (p146-155)
+
+- 컴포넌트 지역 등록 (p146-149): 부모가 자식을 import하면 PascalCase와 kebab-case 둘 다로 쓸 수 있다
+- 컴포넌트 전역 등록 (p150-151): main.js에서 `app.component()`로 올려두면 어느 파일에서든 import 없이 쓴다
+- 라이프사이클 훅 (p152-154): 생성, 부착, 갱신, 소멸 네 단계를 콘솔로 추적. `onMounted`에서 켠 타이머를 `onUnmounted`에서 끄지 않으면 컴포넌트가 사라져도 계속 돈다
+- Code Challenge (p155): 라이프사이클 실습 파일
