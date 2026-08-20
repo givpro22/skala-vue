@@ -103,3 +103,18 @@ http://localhost:5173
 - Code Challenge (p172): Props, Emits 실습 파일
 - Slot (p173-176): props가 데이터를 넘긴다면 slot은 마크업 자체를 넘긴다. 이름 없는 기본 슬롯, 자리를 여러 개 둔 이름 슬롯, 자식이 가진 데이터를 부모가 받아 그리는 스코프 슬롯 세 가지
 - Code Challenge (p177): Slot 실습 파일
+
+#### 과제 3: Weather Component (p178)
+
+`src/components/exercise/` 아래 5개 파일
+
+- `WeatherParent.vue`가 반응형 데이터와 computed, watcher를 전부 쥐고 있다
+- `BaseDashboardCard.vue`는 검색박스와 리스트박스의 테두리 디자인만 맡고 안쪽은 slot으로 비워 뒀다
+- `SearchBar.vue`는 검색어를 props로 받아 표시하고 입력이 바뀌면 update-query로 올려보낸다
+- `WeatherCard.vue`는 도시 객체를 받아 그리고 select-card, click-detail, toggle-favorite 세 이벤트를 부모로 보낸다
+- 각 컴포넌트의 디자인은 자기 파일의 `<style scoped>`로 나눠 담았다
+
+개인 추가
+
+- 요약 줄을 `WeatherSummary.vue`로 한 번 더 떼어내 computed 결과 네 개를 props로 받게 했다
+- 즐겨찾기는 자식이 직접 고치지 않고 부모에게 요청만 보낸다. props는 읽기 전용이라 값을 바꾸는 쪽은 데이터를 쥔 부모여야 한다

@@ -1,6 +1,7 @@
 <script setup>
 import WeatherMockup from './components/exercise/WeatherMockup.vue'
 import WeatherComposition from './components/exercise/WeatherComposition.vue'
+import WeatherParent from './components/exercise/WeatherParent.vue'
 import SampleOne from './components/practices/basic/SampleOne.vue'
 import SampleTwo from './components/practices/basic/SampleTwo.vue'
 import DirectiveVHtml from './components/practices/directive/DirectiveVHtml.vue'
@@ -53,6 +54,10 @@ import SlotScopedParent from './components/practices/component/SlotScopedParent.
     <h1>⛅ 과제 2: 날씨 (컴포지션)</h1>
     <hr />
     <WeatherComposition />
+
+    <h1>⛅ 과제 3: 날씨 (컴포넌트)</h1>
+    <hr />
+    <WeatherParent />
 
     <h1>문법 실습</h1>
     <hr />
