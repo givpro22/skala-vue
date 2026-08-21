@@ -13,23 +13,42 @@ http://localhost:5173
 
 ## 구성
 
-화면을 라우터로 나눴다. 맨 위 색인에서 최종본, 과제 1~7, 문법 실습으로 바로 간다. 첫 화면만 미리 싣고 나머지는 지연 로딩으로 걸어 뒀다.
+화면은 셋으로 갈린다. 메인홈, 실습 아카이브, 트러블슈팅이다. 첫 화면만 미리 싣고 나머지는 지연 로딩으로 걸어 뒀다.
 
-- `/`, `/about`, `/weather/:cityId` — 최종본의 대시보드와 서비스 소개, 도시 상세
-- `/exercise/1`, `/exercise/2`, `/exercise/3` — 과제 1, 2, 3
-- `/exercise/4`, `/exercise/4/about`, `/exercise/4/weather/:cityId` — 과제 4
-- `/exercise/5`, `/exercise/5/about`, `/exercise/5/weather/:cityId` — 과제 5
-- `/exercise/6`, `/exercise/6/about`, `/exercise/6/weather/:cityId` — 과제 6
-- `/exercise/7`, `/exercise/7/about`, `/exercise/7/weather/:cityId` — 과제 7
-- `/practice/basic`을 비롯한 아홉 단원 — 문법 실습
+- `/` — 메인홈
+- `/lessons` — 실습 아카이브 목록. Day 1부터 4까지 문법 실습과 과제로 들어가는 색인이다
+- `/troubleshooting` — 막혔던 자리와 푼 방법을 날짜별로 모은 곳
 - 어디에도 걸리지 않는 주소는 `NotFoundView.vue`가 받는다
+
+아카이브 아래로는 Day 번호를 프리픽스로 두고 깊어진다. 주소만 봐도 지금 몇 일차의 무엇을 보는지 안다.
+
+- `/lessons/final`, `/lessons/final/about`, `/lessons/final/weather/:cityId` — 누적본
+- `/lessons/day2/exercise-1`, `/lessons/day3/exercise-2`, `/lessons/day3/exercise-3` — 과제 1, 2, 3
+- `/lessons/day4/exercise-4`부터 `exercise-7`까지 — 과제 4에서 7. 각각 `/about`과 `/weather/:cityId`를 함께 둔다
+- `/lessons/day1/practice/basic`을 비롯한 아홉 단원 — 문법 실습
 
 각 화면의 역할은 이렇다.
 
-- `src/views/final/` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
-- 과제 1, 2, 3은 `src/views/exercise/`, 과제 4부터는 그 아래 `ex4`에서 `ex7`까지에 둔다. 제출한 그대로 둔 스냅샷이라 뒤 단원 문법을 섞지 않는다
-- 문법 실습은 `src/views/practice/` 아래에서 단원별로 나뉘고 `PracticeNav.vue`가 그 색인을 그린다
-- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`, `WeatherSubNav`)는 최종본과 과제들이 함께 쓴다
+- `src/views/lessons/final/` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
+- `src/views/lessons/exercise/` — 과제 1, 2, 3이 바로 아래에 있고 과제 4부터는 `ex4`에서 `ex7`까지로 나뉜다. 제출한 그대로 둔 스냅샷이라 뒤 단원 문법을 섞지 않는다
+- `src/views/lessons/practice/` — 문법 실습이 단원별로 나뉘고 `PracticeNav.vue`가 그 색인을 그린다
+- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`, `WeatherSubNav`)는 누적본과 과제들이 함께 쓴다
+
+도시 목록은 두 벌이다. 아카이브 화면은 `src/data/cityCoords.js`의 여섯 곳을 보고 메인홈은 `src/data/heroCities.js`의 스무 곳을 본다. 나눠 둔 이유는 메인홈에서 도시를 늘려도 이미 제출한 과제 화면의 내용이 바뀌면 안 되기 때문이다.
+
+## 메인홈
+
+`/`는 도시 사진 카드가 3D 구 위에서 도는 화면이다. 카드 한 장이 도시 하나다. 사진 위에 지금 기온이 얹히고 카드를 누르면 그 도시 상세로 넘어간다.
+
+들어오면 카드가 평면 링으로 깔렸다가 중앙으로 빨려 들어간 뒤 구로 퍼진다. 그다음부터는 천천히 돌고 마우스를 옮기면 그쪽으로 회전이 가감속된다. 기온은 스무 곳을 한꺼번에 받아 오는데, 다 올 때까지 기다리지 않고 사진과 도시명으로 먼저 그린 뒤 도착하는 대로 채운다.
+
+3D 스피어는 Three.js로 만들었다. 강의에서 다루지 않은 라이브러리라 AI 도움을 받았다.
+
+## 트러블슈팅
+
+`/troubleshooting`은 강의를 들으며 막혔던 자리와 푼 방법을 Day별로 모은 곳이다. 데이터는 `src/data/troubleshootingLog.js`에 있다.
+
+커밋 히스토리와 코드에 남은 주석에서 확인한 것만 적었다. 흔적을 찾지 못한 날은 비워 뒀고 아직 못 고친 것도 그대로 뒀다. 본문에 적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
 
 ## 실행에 필요한 키
 
