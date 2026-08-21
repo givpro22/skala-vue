@@ -3,9 +3,10 @@ const groups = [
   { path: '/practice/basic', label: '기본' },
   { path: '/practice/directive', label: '디렉티브' },
   { path: '/practice/event', label: '이벤트' },
-  { path: '/practice/form', label: '폼·스타일' },
+  { path: '/practice/form', label: '폼과 스타일' },
   { path: '/practice/composition', label: 'Composition' },
-  { path: '/practice/component', label: '컴포넌트·슬롯' },
+  { path: '/practice/component', label: '컴포넌트와 슬롯' },
+  { path: '/practice/pinia', label: 'Pinia' },
 ]
 </script>
 

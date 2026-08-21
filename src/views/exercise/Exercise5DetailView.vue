@@ -1,20 +1,17 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
-import { useFinalWeatherStore } from '../stores/finalWeatherStore.js'
+import BaseDashboardCard from '../../components/exercise/BaseDashboardCard.vue'
+import { useWeatherStore } from '../../stores/weatherStore.js'
 
 const route = useRoute()
 const router = useRouter()
-const weather = useFinalWeatherStore()
+const weather = useWeatherStore()
 
-// 주소의 :id가 바뀌면 화면도 따라 바뀌어야 해서 computed로 잡는다
 const cityIndex = computed(() => weather.findIndex(route.params.id))
 const city = computed(() => (cityIndex.value === -1 ? null : weather.cityList[cityIndex.value]))
 
-const prevCity = computed(() =>
-  cityIndex.value > 0 ? weather.cityList[cityIndex.value - 1] : null,
-)
+const prevCity = computed(() => (cityIndex.value > 0 ? weather.cityList[cityIndex.value - 1] : null))
 const nextCity = computed(() =>
   cityIndex.value !== -1 && cityIndex.value < weather.cityList.length - 1
     ? weather.cityList[cityIndex.value + 1]
@@ -22,13 +19,13 @@ const nextCity = computed(() =>
 )
 
 const goList = () => {
-  router.push('/')
+  router.push('/exercise/5')
 }
 </script>
 
 <template>
-  <div class="weather-final-detail">
-    <h1>⛅ 최종본: 도시 상세</h1>
+  <div class="exercise5-detail">
+    <h1>⛅ 과제 5: 도시 상세</h1>
     <hr />
 
     <BaseDashboardCard v-if="city" :title="`${city.name} 상세 정보`">
@@ -41,7 +38,7 @@ const goList = () => {
         <li>체감온도 {{ city.feelsLike }}°C</li>
         <li>습도 {{ city.humidity }}%</li>
         <li>풍속 {{ city.wind }}m/s</li>
-        <li>주소 파라미터 id: {{ route.params.id }}</li>
+        <li>store에 담긴 즐겨찾기 수: {{ weather.favoriteCount }}</li>
       </ul>
 
       <button class="favorite" @click="weather.toggleFavorite(city)">
@@ -54,14 +51,14 @@ const goList = () => {
     </BaseDashboardCard>
 
     <div class="move-bar">
-      <router-link v-if="prevCity" :to="`/final/${prevCity.id}`" class="move">
+      <router-link v-if="prevCity" :to="`/exercise/5/${prevCity.id}`" class="move">
         ← {{ prevCity.name }}
       </router-link>
       <span v-else class="move disabled">← 이전 없음</span>
 
-      <button class="to-list" @click="goList">최종본으로</button>
+      <button class="to-list" @click="goList">목록으로</button>
 
-      <router-link v-if="nextCity" :to="`/final/${nextCity.id}`" class="move">
+      <router-link v-if="nextCity" :to="`/exercise/5/${nextCity.id}`" class="move">
         {{ nextCity.name }} →
       </router-link>
       <span v-else class="move disabled">다음 없음 →</span>
@@ -70,7 +67,7 @@ const goList = () => {
 </template>
 
 <style scoped>
-.weather-final-detail {
+.exercise5-detail {
   margin-bottom: 40px;
 }
 

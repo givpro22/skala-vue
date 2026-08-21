@@ -13,12 +13,13 @@ http://localhost:5173
 
 ## 구성
 
-화면을 라우터로 나눴다. 맨 위 색인에서 최종본, 과제 1~4, 문법 실습으로 바로 간다.
+화면을 라우터로 나눴다. 맨 위 색인에서 최종본, 과제 1~5, 문법 실습으로 바로 간다.
 
 - `/` — 최종본. 도시 상세는 `/final/:id`
 - `/exercise/1`, `/exercise/2`, `/exercise/3` — 과제 1, 2, 3
 - `/exercise/4` — 과제 4 목록. 도시 상세는 `/exercise/4/:id`
-- `/practice/basic`을 비롯한 여섯 단원 — 문법 실습
+- `/exercise/5` — 과제 5 목록. 도시 상세는 `/exercise/5/:id`
+- `/practice/basic`을 비롯한 일곱 단원 — 문법 실습
 - 어디에도 걸리지 않는 주소는 `NotFoundView.vue`가 받는다
 
 각 화면의 역할은 이렇다.
@@ -26,7 +27,7 @@ http://localhost:5173
 - `src/components/exercise/WeatherFinal.vue` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
 - 과제 1, 2, 3 — 각 단계에서 제출한 그대로 둔 스냅샷. 뒤 단원 문법을 섞지 않는다
 - 문법 실습은 `src/views/practice/` 아래에서 단원별로 나뉘고 `PracticeNav.vue`가 그 색인을 그린다
-- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`)는 최종본과 과제 3, 과제 4가 함께 쓴다
+- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`)는 최종본과 과제 3, 4, 5가 함께 쓴다
 
 ## 실습 내용
 
@@ -160,3 +161,31 @@ http://localhost:5173
 
 - `WeatherFinal.vue`의 상세보기를 alert에서 `router.push`로 바꾸고 상세 화면을 `/final/:id`로 뺐다
 - 최종본 데이터는 `src/data/finalWeatherList.js`로 옮겼다. 과제 4 스냅샷과 배열을 나눠 둬서 즐겨찾기가 서로 섞이지 않는다
+
+#### 문법 실습 (p197-211)
+
+- defineStore Option 스타일: state는 데이터, getters는 계산된 값, actions는 state를 고치는 함수다. 컴포넌트 밖에 있어서 어느 화면에서 꺼내 써도 같은 값을 본다
+- defineStore Setup 스타일: `ref`가 state, `computed`가 getters, 일반 함수가 actions 자리를 대신한다. 스캐폴딩이 만들어 둔 `stores/counter.js`가 이 형태였다
+- storeToRefs: store를 그냥 구조분해하면 그 순간의 값만 떨어져 나와 화면이 갱신되지 않는다. 끊긴 쪽과 살아 있는 쪽을 나란히 두고 비교했다
+- 컴포넌트 간 store 공유: 부모 자식 관계가 아니고 props도 주고받지 않는 두 컴포넌트가 같은 store를 본다. 한쪽에서 고치면 다른 쪽이 따라 바뀐다
+- 실습 파일은 `src/components/practices/pinia/` 아래 4종
+
+#### 과제 5: Weather Pinia (p212)
+
+`src/stores/weatherStore.js`와 `src/views/exercise/` 아래 화면 두 개
+
+- 과제 4에서 부모가 쥐고 있던 상태를 전부 store로 옮겼다. 도시 배열과 검색어, 선택 상태가 state에 있다
+- 검색 결과와 평균 기온, 즐겨찾기 수는 getters로 뺐다. `averageTemp`는 다른 getter인 `filteredList`를 참조해야 해서 화살표 함수 대신 일반 함수로 적었다
+- 검색어 변경, 정렬 토글, 도시 선택, 즐겨찾기는 actions가 맡는다. 화면은 값을 직접 고치지 않고 action만 부른다
+- 목록과 상세가 같은 store를 보기 때문에 상세에서 켠 즐겨찾기가 목록에도 그대로 남는다
+
+개인 추가
+
+- `StoreStatusBar.vue`는 props를 하나도 받지 않고 store에서 선택 상태를 직접 꺼낸다. 과제 3에서 부모를 거쳐 내려보내던 것과 대비된다
+- 상세 화면에 store의 즐겨찾기 수를 함께 찍어 뒀다. 한 화면에서 고친 state가 다른 화면의 getter까지 흔드는 것을 눈으로 본다
+
+최종본 반영
+
+- 최종본도 `src/stores/finalWeatherStore.js`로 상태를 옮기고 `storeToRefs`로 꺼내 쓴다
+- 모듈로 두던 `src/data/finalWeatherList.js`는 store가 대신해서 지웠다
+- 과제 5와는 store를 따로 둔다. 스냅샷과 누적본이 서로의 즐겨찾기를 건드리지 않는다

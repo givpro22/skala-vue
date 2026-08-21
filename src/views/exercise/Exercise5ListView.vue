@@ -1,46 +1,35 @@
 <script setup>
-import { watch, watchEffect } from 'vue'
+import { watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import BaseDashboardCard from './BaseDashboardCard.vue'
-import SearchBar from './SearchBar.vue'
-import WeatherCard from './WeatherCard.vue'
-import WeatherSummary from './WeatherSummary.vue'
-import { useFinalWeatherStore } from '../../stores/finalWeatherStore.js'
+import BaseDashboardCard from '../../components/exercise/BaseDashboardCard.vue'
+import SearchBar from '../../components/exercise/SearchBar.vue'
+import WeatherCard from '../../components/exercise/WeatherCard.vue'
+import WeatherSummary from '../../components/exercise/WeatherSummary.vue'
+import StoreStatusBar from '../../components/exercise/StoreStatusBar.vue'
+import { useWeatherStore } from '../../stores/weatherStore.js'
 
 const router = useRouter()
-const weather = useFinalWeatherStore()
+const weather = useWeatherStore()
 
-// state와 getter를 구조분해할 때는 storeToRefs를 거쳐야 반응성이 끊기지 않는다
-const {
-  searchQuery,
-  hotOnly,
-  selectedCityId,
-  selectedCityInfo,
-  filteredList,
-  favoriteCount,
-  averageTemp,
-} = storeToRefs(weather)
-
-watch(selectedCityInfo, (newInfo, oldInfo) => {
-  console.log(`[선택 변경] ${oldInfo} -> ${newInfo}`)
-})
+// 화면에서 쓸 state와 getter는 storeToRefs로 꺼내야 반응성이 살아 있다
+const { searchQuery, hotOnly, selectedCityId, filteredList, favoriteCount, averageTemp } =
+  storeToRefs(weather)
 
 watch(favoriteCount, (newCount, oldCount) => {
   console.log(`[즐겨찾기] ${oldCount}개에서 ${newCount}개로 변경`)
 })
 
-watchEffect(() => {
-  console.log(`[검색어 추적] 현재 입력값: "${searchQuery.value}"`)
-})
-
 const goDetail = (city) => {
-  router.push(`/final/${city.id}`)
+  router.push(`/exercise/5/${city.id}`)
 }
 </script>
 
 <template>
-  <div class="weather-final">
+  <div class="exercise5-view">
+    <h1>⛅ 과제 5: 날씨 (Pinia)</h1>
+    <hr />
+
     <BaseDashboardCard title="도시 검색">
       <SearchBar
         :query="searchQuery"
@@ -73,12 +62,12 @@ const goDetail = (city) => {
       </div>
     </BaseDashboardCard>
 
-    <div class="status-bar">{{ selectedCityInfo }}</div>
+    <StoreStatusBar />
   </div>
 </template>
 
 <style scoped>
-.weather-final {
+.exercise5-view {
   margin-bottom: 40px;
 }
 
@@ -92,13 +81,5 @@ const goDetail = (city) => {
   padding: 20px;
   color: #888;
   text-align: center;
-}
-
-.status-bar {
-  margin-top: 16px;
-  padding: 10px;
-  border-radius: 6px;
-  background-color: #333;
-  color: white;
 }
 </style>

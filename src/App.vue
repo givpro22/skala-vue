@@ -5,6 +5,7 @@ const menus = [
   { path: '/exercise/2', label: '과제 2' },
   { path: '/exercise/3', label: '과제 3' },
   { path: '/exercise/4', label: '과제 4' },
+  { path: '/exercise/5', label: '과제 5' },
   { path: '/practice', label: '문법 실습' },
 ]
 </script>
