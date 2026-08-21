@@ -11,6 +11,14 @@ npm run dev
 
 http://localhost:5173
 
+## 구성
+
+화면 맨 위에 최종본을 두고 그 아래에 과제별 결과물을 순서대로 남겼다.
+
+- `src/components/exercise/WeatherFinal.vue` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
+- 과제 1, 2, 3 — 각 단계에서 제출한 그대로 둔 스냅샷. 뒤 단원 문법을 섞지 않는다
+- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`)는 최종본과 과제 3이 함께 쓴다
+
 ## 실습 내용
 
 ### 1일차 (2026-08-18)

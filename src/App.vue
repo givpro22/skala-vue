@@ -1,4 +1,5 @@
 <script setup>
+import WeatherFinal from './components/exercise/WeatherFinal.vue'
 import WeatherMockup from './components/exercise/WeatherMockup.vue'
 import WeatherComposition from './components/exercise/WeatherComposition.vue'
 import WeatherParent from './components/exercise/WeatherParent.vue'
@@ -47,6 +48,10 @@ import SlotScopedParent from './components/practices/component/SlotScopedParent.
 
 <template>
   <div style="padding: 20px">
+    <h1>⛅ 최종본: 날씨 대시보드</h1>
+    <hr />
+    <WeatherFinal />
+
     <h1>⛅ 과제 1: 날씨 (Mockup)</h1>
     <hr />
     <WeatherMockup />
