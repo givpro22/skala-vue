@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { cityCoords } from '../data/cityCoords.js'
 import { fetchCurrentWeather, fetchAirPollution, fetchDailyForecast } from '../api/weatherApi.js'
 
-export const useFinalWeatherStore = defineStore('finalWeather', {
+export const useUiWeatherStore = defineStore('uiWeather', {
   state: () => ({
     cityList: [],
     airByCity: {},

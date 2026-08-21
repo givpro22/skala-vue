@@ -3,13 +3,13 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
-import ElWeatherSubNav from '../../components/exercise/ElWeatherSubNav.vue'
-import ElWeatherCard from '../../components/exercise/ElWeatherCard.vue'
-import { useFinalWeatherStore } from '../../stores/finalWeatherStore.js'
-import { useConfigStore } from '../../stores/configStore.js'
+import ElWeatherSubNav from '../../../components/exercise/ElWeatherSubNav.vue'
+import ElWeatherCard from '../../../components/exercise/ElWeatherCard.vue'
+import { useUiWeatherStore } from '../../../stores/uiWeatherStore.js'
+import { useConfigStore } from '../../../stores/configStore.js'
 
 const router = useRouter()
-const live = useFinalWeatherStore()
+const live = useUiWeatherStore()
 const configStore = useConfigStore()
 
 const {
@@ -41,7 +41,7 @@ const reload = async () => {
 }
 
 const goDetail = (city) => {
-  router.push(`/weather/${city.id}`)
+  router.push(`/exercise/7/weather/${city.id}`)
 }
 
 const toggleFavorite = (city) => {
@@ -52,10 +52,10 @@ const toggleFavorite = (city) => {
 
 <template>
   <div class="weather-home-view">
-    <h1>⛅ 최종본: 날씨 (Element Plus)</h1>
+    <h1>⛅ 과제 7: 날씨 (Element Plus)</h1>
     <hr />
 
-    <ElWeatherSubNav base-path="/" />
+    <ElWeatherSubNav base-path="/exercise/7" />
 
     <el-card class="search-card">
       <template #header>도시 검색</template>

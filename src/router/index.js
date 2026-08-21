@@ -62,6 +62,38 @@ const router = createRouter({
       component: () => import('../views/exercise/ex5/WeatherDetailView.vue'),
     },
 
+    {
+      path: '/exercise/6',
+      name: 'exercise-6',
+      component: () => import('../views/exercise/ex6/WeatherHomeView.vue'),
+    },
+    {
+      path: '/exercise/6/about',
+      name: 'exercise-6-about',
+      component: () => import('../views/exercise/ex6/WeatherAboutView.vue'),
+    },
+    {
+      path: '/exercise/6/weather/:cityId',
+      name: 'exercise-6-detail',
+      component: () => import('../views/exercise/ex6/WeatherDetailView.vue'),
+    },
+
+    {
+      path: '/exercise/7',
+      name: 'exercise-7',
+      component: () => import('../views/exercise/ex7/WeatherHomeView.vue'),
+    },
+    {
+      path: '/exercise/7/about',
+      name: 'exercise-7-about',
+      component: () => import('../views/exercise/ex7/WeatherAboutView.vue'),
+    },
+    {
+      path: '/exercise/7/weather/:cityId',
+      name: 'exercise-7-detail',
+      component: () => import('../views/exercise/ex7/WeatherDetailView.vue'),
+    },
+
     { path: '/practice', redirect: '/practice/basic' },
     {
       path: '/practice/basic',
@@ -102,6 +134,11 @@ const router = createRouter({
       path: '/practice/axios',
       name: 'practice-axios',
       component: () => import('../views/practice/AxiosView.vue'),
+    },
+    {
+      path: '/practice/element',
+      name: 'practice-element',
+      component: () => import('../views/practice/ElementView.vue'),
     },
 
     // 위 라우트와 매칭되지 않는 모든 경로를 NotFoundView로 보낸다

@@ -1,13 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ElWeatherSubNav from '../../components/exercise/ElWeatherSubNav.vue'
-import { useFinalWeatherStore } from '../../stores/finalWeatherStore.js'
-import { useConfigStore } from '../../stores/configStore.js'
+import ElWeatherSubNav from '../../../components/exercise/ElWeatherSubNav.vue'
+import { useUiWeatherStore } from '../../../stores/uiWeatherStore.js'
+import { useConfigStore } from '../../../stores/configStore.js'
 
 const route = useRoute()
 const router = useRouter()
-const live = useFinalWeatherStore()
+const live = useUiWeatherStore()
 const configStore = useConfigStore()
 
 const city = ref(null)
@@ -43,12 +43,12 @@ const toDisplay = (celsius) =>
 
 <template>
   <div class="weather-detail-view">
-    <h1>⛅ 최종본: 지역별 상세 기상 관측 정보</h1>
+    <h1>⛅ 과제 7: 지역별 상세 기상 관측 정보</h1>
     <hr />
 
-    <ElWeatherSubNav base-path="/" />
+    <ElWeatherSubNav base-path="/exercise/7" />
 
-    <el-page-header title="뒤로" @back="router.push('/')">
+    <el-page-header title="뒤로" @back="router.push('/exercise/7')">
       <template #content>{{ city ? `${city.name} 상세 기상 관측 정보` : '도시 상세' }}</template>
     </el-page-header>
 

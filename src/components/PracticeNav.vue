@@ -8,6 +8,7 @@ const groups = [
   { path: '/practice/component', label: '컴포넌트와 슬롯' },
   { path: '/practice/pinia', label: 'Pinia' },
   { path: '/practice/axios', label: 'Axios' },
+  { path: '/practice/element', label: 'Element Plus' },
 ]
 </script>
 

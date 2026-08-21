@@ -1,50 +1,47 @@
 <script setup>
 import { useRouter } from 'vue-router'
-import WeatherSubNav from '../../components/exercise/WeatherSubNav.vue'
-import UnitToggler from '../../components/exercise/UnitToggler.vue'
-import BaseDashboardCard from '../../components/exercise/BaseDashboardCard.vue'
+import ElWeatherSubNav from '../../components/exercise/ElWeatherSubNav.vue'
 
 const router = useRouter()
-
-const goHome = () => {
-  router.push('/')
-}
 </script>
 
 <template>
-  <div class="weather-final-about">
+  <div class="weather-about-view">
     <h1>⛅ 최종본: 서비스 소개</h1>
     <hr />
 
-    <WeatherSubNav base-path="/">
-      <UnitToggler />
-    </WeatherSubNav>
+    <ElWeatherSubNav base-path="/" />
 
-    <BaseDashboardCard title="서비스 소개">
+    <el-card>
+      <template #header>서비스 소개</template>
+
       <p>강의에서 배운 것을 순서대로 얹어 온 누적본이다.</p>
 
-      <ul class="intro">
-        <li>디렉티브와 이벤트, 폼 바인딩으로 화면을 짰다</li>
-        <li>Composition API로 상태와 계산, 감시를 정리했다</li>
-        <li>컴포넌트와 슬롯으로 화면을 쪼개고 props와 emits로 연결했다</li>
-        <li>Vue Router로 대시보드와 소개, 상세를 경로로 나눴다</li>
-        <li>Pinia로 날씨 데이터와 단위 설정을 전역 스토어에 담았다</li>
-      </ul>
+      <el-timeline>
+        <el-timeline-item timestamp="화면" placement="top">
+          디렉티브와 이벤트, 폼 바인딩으로 뼈대를 짜고 컴포넌트와 슬롯으로 쪼갰다
+        </el-timeline-item>
+        <el-timeline-item timestamp="상태" placement="top">
+          Composition API로 정리한 상태를 Pinia 스토어로 옮겼다
+        </el-timeline-item>
+        <el-timeline-item timestamp="경로" placement="top">
+          Vue Router로 대시보드와 소개, 상세를 나누고 지연 로딩을 걸었다
+        </el-timeline-item>
+        <el-timeline-item timestamp="통신" placement="top">
+          axios로 OpenWeatherMap의 현재 날씨와 대기질, Open-Meteo의 예보를 받아 온다
+        </el-timeline-item>
+        <el-timeline-item timestamp="UI" placement="top">
+          Element Plus 컴포넌트로 화면을 다시 그렸다
+        </el-timeline-item>
+      </el-timeline>
 
-      <button class="to-home" @click="goHome">대시보드 홈으로 이동</button>
-    </BaseDashboardCard>
+      <el-button type="primary" @click="router.push('/')">대시보드 홈으로 이동</el-button>
+    </el-card>
   </div>
 </template>
 
 <style scoped>
-.intro {
-  margin: 0 0 14px;
-  padding-left: 18px;
-  color: #555;
-}
-
-.to-home {
-  padding: 8px 14px;
-  cursor: pointer;
+.weather-about-view {
+  margin-bottom: 40px;
 }
 </style>
