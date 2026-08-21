@@ -16,6 +16,10 @@ defineProps({
     type: Number,
     required: true,
   },
+  unitSymbol: {
+    type: String,
+    default: '°C',
+  },
 })
 </script>
 
@@ -23,7 +27,7 @@ defineProps({
   <ul class="summary">
     <li>검색어: {{ query === '' ? '없음 (전체 표시)' : query }}</li>
     <li>표시 중인 도시: {{ visibleCount }}곳</li>
-    <li>평균 기온: {{ averageTemp }}°C</li>
+    <li>평균 기온: {{ averageTemp }}{{ unitSymbol }}</li>
     <li>즐겨찾기: {{ favoriteCount }}곳</li>
   </ul>
 </template>

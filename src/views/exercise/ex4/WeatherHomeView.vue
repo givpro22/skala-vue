@@ -1,11 +1,12 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import BaseDashboardCard from '../../components/exercise/BaseDashboardCard.vue'
-import SearchBar from '../../components/exercise/SearchBar.vue'
-import WeatherCard from '../../components/exercise/WeatherCard.vue'
-import WeatherSummary from '../../components/exercise/WeatherSummary.vue'
-import { weatherList } from '../../data/weatherList.js'
+import WeatherSubNav from '../../../components/exercise/WeatherSubNav.vue'
+import BaseDashboardCard from '../../../components/exercise/BaseDashboardCard.vue'
+import SearchBar from '../../../components/exercise/SearchBar.vue'
+import WeatherCard from '../../../components/exercise/WeatherCard.vue'
+import WeatherSummary from '../../../components/exercise/WeatherSummary.vue'
+import { weatherList } from '../../../data/weatherList.js'
 
 const router = useRouter()
 
@@ -53,9 +54,9 @@ const selectCard = (city) => {
   selectedCityInfo.value = `${city.name}이 선택되었습니다.`
 }
 
-// 과제 3에서 alert을 띄우던 자리를 상세 페이지 이동으로 바꿨다
+// window.alert()을 걷어내고 Programmatic Navigation으로 상세 페이지를 연다
 const goDetail = (city) => {
-  router.push(`/exercise/4/${city.id}`)
+  router.push(`/exercise/4/weather/${city.id}`)
 }
 
 const toggleFavorite = (city) => {
@@ -64,9 +65,11 @@ const toggleFavorite = (city) => {
 </script>
 
 <template>
-  <div class="weather-list-view">
+  <div class="weather-home-view">
     <h1>⛅ 과제 4: 날씨 (라우터)</h1>
     <hr />
+
+    <WeatherSubNav base-path="/exercise/4" />
 
     <BaseDashboardCard title="도시 검색">
       <SearchBar
@@ -84,7 +87,7 @@ const toggleFavorite = (city) => {
       :favorite-count="favoriteCount"
     />
 
-    <BaseDashboardCard title="날씨 현황">
+    <BaseDashboardCard title="지역별 날씨 현황">
       <p v-if="filteredWeatherList.length === 0" class="empty">
         검색 결과와 일치하는 도시가 없습니다.
       </p>
@@ -107,7 +110,7 @@ const toggleFavorite = (city) => {
 </template>
 
 <style scoped>
-.weather-list-view {
+.weather-home-view {
   margin-bottom: 40px;
 }
 

@@ -1,15 +1,17 @@
 <script setup>
-import { watch, watchEffect } from 'vue'
+import { computed, watch, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import BaseDashboardCard from './BaseDashboardCard.vue'
 import SearchBar from './SearchBar.vue'
-import WeatherCard from './WeatherCard.vue'
+import UnitWeatherCard from './UnitWeatherCard.vue'
 import WeatherSummary from './WeatherSummary.vue'
 import { useFinalWeatherStore } from '../../stores/finalWeatherStore.js'
+import { useConfigStore } from '../../stores/configStore.js'
 
 const router = useRouter()
 const weather = useFinalWeatherStore()
+const configStore = useConfigStore()
 
 // state와 getter를 구조분해할 때는 storeToRefs를 거쳐야 반응성이 끊기지 않는다
 const {
@@ -34,8 +36,14 @@ watchEffect(() => {
   console.log(`[검색어 추적] 현재 입력값: "${searchQuery.value}"`)
 })
 
+const displayAverage = computed(() =>
+  configStore.unit === 'fahrenheit'
+    ? Math.round((averageTemp.value * 9) / 5 + 32)
+    : averageTemp.value,
+)
+
 const goDetail = (city) => {
-  router.push(`/final/${city.id}`)
+  router.push(`/weather/${city.id}`)
 }
 </script>
 
@@ -53,7 +61,8 @@ const goDetail = (city) => {
     <WeatherSummary
       :query="searchQuery"
       :visible-count="filteredList.length"
-      :average-temp="averageTemp"
+      :average-temp="displayAverage"
+      :unit-symbol="configStore.unitSymbol"
       :favorite-count="favoriteCount"
     />
 
@@ -61,7 +70,7 @@ const goDetail = (city) => {
       <p v-if="filteredList.length === 0" class="empty">검색 결과와 일치하는 도시가 없습니다.</p>
 
       <div v-else class="card-list">
-        <WeatherCard
+        <UnitWeatherCard
           v-for="city in filteredList"
           :key="city.id"
           :city-item="city"

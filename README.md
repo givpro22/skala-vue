@@ -13,21 +13,29 @@ http://localhost:5173
 
 ## 구성
 
-화면을 라우터로 나눴다. 맨 위 색인에서 최종본, 과제 1~5, 문법 실습으로 바로 간다.
+화면을 라우터로 나눴다. 맨 위 색인에서 최종본, 과제 1~5, 문법 실습으로 바로 간다. 첫 화면만 미리 싣고 나머지는 지연 로딩으로 걸어 뒀다.
 
-- `/` — 최종본. 도시 상세는 `/final/:id`
+- `/`, `/about`, `/weather/:cityId` — 최종본의 대시보드와 서비스 소개, 도시 상세
 - `/exercise/1`, `/exercise/2`, `/exercise/3` — 과제 1, 2, 3
-- `/exercise/4` — 과제 4 목록. 도시 상세는 `/exercise/4/:id`
-- `/exercise/5` — 과제 5 목록. 도시 상세는 `/exercise/5/:id`
-- `/practice/basic`을 비롯한 일곱 단원 — 문법 실습
+- `/exercise/4`, `/exercise/4/about`, `/exercise/4/weather/:cityId` — 과제 4
+- `/exercise/5`, `/exercise/5/about`, `/exercise/5/weather/:cityId` — 과제 5
+- `/practice/basic`을 비롯한 여덟 단원 — 문법 실습
 - 어디에도 걸리지 않는 주소는 `NotFoundView.vue`가 받는다
 
 각 화면의 역할은 이렇다.
 
-- `src/components/exercise/WeatherFinal.vue` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
-- 과제 1, 2, 3 — 각 단계에서 제출한 그대로 둔 스냅샷. 뒤 단원 문법을 섞지 않는다
+- `src/views/final/` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
+- 과제 1, 2, 3은 `src/views/exercise/`, 과제 4와 5는 그 아래 `ex4`, `ex5`에 둔다. 제출한 그대로 둔 스냅샷이라 뒤 단원 문법을 섞지 않는다
 - 문법 실습은 `src/views/practice/` 아래에서 단원별로 나뉘고 `PracticeNav.vue`가 그 색인을 그린다
-- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`)는 최종본과 과제 3, 4, 5가 함께 쓴다
+- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`, `WeatherSubNav`)는 최종본과 과제들이 함께 쓴다
+
+## 실행에 필요한 키
+
+Axios 실습의 Open Weather 예제는 API 키가 있어야 돈다. `.env.example`을 복사해 `.env.local`을 만들고 본인 키를 넣는다. `.env.local`은 gitignore 대상이라 저장소에 올라가지 않는다.
+
+```
+VITE_OPENWEATHER_API_KEY=발급받은_키
+```
 
 ## 실습 내용
 
@@ -141,51 +149,77 @@ http://localhost:5173
 
 #### 과제 4: Weather Router (p196)
 
-`src/views/exercise/WeatherListView.vue`, `src/views/exercise/WeatherDetailView.vue`와 `src/router/index.js`
+`src/views/exercise/ex4/` 아래 화면 세 개와 `src/router/index.js`
 
+- 라우터에 지연 로딩을 걸었다. 첫 화면만 미리 싣고 나머지는 그 경로에 처음 들어갈 때 청크를 따로 받는다
+- Catch-all Route를 등록 목록 맨 끝에 두고 `NotFoundView.vue`로 보낸다. 없는 주소에서 화면이 하얗게 비는 것을 막는다
 - `App.vue`는 상단 색인과 `router-view`만 남긴 껍데기로 줄였다. 한 페이지에 쌓아 두던 화면을 전부 경로로 떼어냈다
-- `/exercise/4`는 `WeatherListView.vue`. 과제 3의 자식 컴포넌트를 그대로 재사용한다. 상세보기 버튼은 alert 대신 `router.push`로 상세 경로를 연다
-- `/exercise/4/:id`는 `WeatherDetailView.vue`. `useRoute()`로 주소에 박힌 id를 꺼내 해당 도시를 찾는다. 목록에 없는 id면 안내 문구로 대신한다
-- 어디에도 걸리지 않는 주소는 `NotFoundView.vue`가 받는다
-- 도시 데이터는 `src/data/weatherList.js`로 빼서 목록과 상세가 같은 배열을 본다. 화면을 옮겨도 즐겨찾기가 풀리지 않는다
+- `WeatherHomeView.vue`는 과제 3의 `WeatherParent`를 대체한다. 상세보기 버튼에서 `window.alert()`을 걷어내고 `router.push`로 상세 경로를 연다
+- `WeatherDetailView.vue`는 주소의 `cityId`를 받아 Mount 시점에 Mock Data에서 도시 객체를 고른다
+- `WeatherAboutView.vue`는 서비스 소개 정적 페이지다. 대시보드 홈으로 돌아가는 버튼을 뒀다
 
 개인 추가
 
-- 상세 화면에 이전, 다음 도시로 넘어가는 `router-link`를 두고 경로를 도시 id로 만들었다. 목록을 거치지 않고 옆 도시로 바로 넘어간다
-- 상세 화면에 주소 파라미터 id를 그대로 찍어 뒀다. 링크를 눌러 이동할 때 무엇이 바뀌는지 눈으로 확인하려고 남겼다
-- 색인에서 지금 열려 있는 경로는 `router-link-active` 클래스로 강조한다
+- `WeatherSubNav.vue`로 대시보드와 서비스 소개를 오가는 줄을 따로 뺐다. 과제 5와 최종본이 같이 쓴다
+- 상세 화면에 이전, 다음 도시로 넘어가는 `router-link`를 두고 경로를 도시 id로 만들었다. 같은 화면에서 파라미터만 바뀔 때는 Mount가 다시 일어나지 않아 `watch`로 따로 잡았다
+- 상세 화면에 주소 파라미터 cityId를 그대로 찍어 뒀다
 - 과제 1, 2, 3과 문법 실습도 전부 경로로 떼어내고 맨 위에 색인을 뒀다. 한 페이지를 길게 스크롤하지 않아도 된다
-- 문법 실습은 40개가 한 화면에 몰려 있어 여섯 단원으로 쪼개고 `PracticeNav.vue`로 하위 색인을 달았다
-
-최종본 반영
-
-- `WeatherFinal.vue`의 상세보기를 alert에서 `router.push`로 바꾸고 상세 화면을 `/final/:id`로 뺐다
-- 최종본 데이터는 `src/data/finalWeatherList.js`로 옮겼다. 과제 4 스냅샷과 배열을 나눠 둬서 즐겨찾기가 서로 섞이지 않는다
+- 문법 실습은 40개가 한 화면에 몰려 있어 단원별로 쪼개고 `PracticeNav.vue`로 하위 색인을 달았다
 
 #### 문법 실습 (p197-211)
 
-- defineStore Option 스타일: state는 데이터, getters는 계산된 값, actions는 state를 고치는 함수다. 컴포넌트 밖에 있어서 어느 화면에서 꺼내 써도 같은 값을 본다
-- defineStore Setup 스타일: `ref`가 state, `computed`가 getters, 일반 함수가 actions 자리를 대신한다. 스캐폴딩이 만들어 둔 `stores/counter.js`가 이 형태였다
-- storeToRefs: store를 그냥 구조분해하면 그 순간의 값만 떨어져 나와 화면이 갱신되지 않는다. 끊긴 쪽과 살아 있는 쪽을 나란히 두고 비교했다
-- 컴포넌트 간 store 공유: 부모 자식 관계가 아니고 props도 주고받지 않는 두 컴포넌트가 같은 store를 본다. 한쪽에서 고치면 다른 쪽이 따라 바뀐다
-- 실습 파일은 `src/components/practices/pinia/` 아래 4종
-
-#### 과제 5: Weather Pinia (p212)
-
-`src/stores/weatherStore.js`와 `src/views/exercise/` 아래 화면 두 개
-
-- 과제 4에서 부모가 쥐고 있던 상태를 전부 store로 옮겼다. 도시 배열과 검색어, 선택 상태가 state에 있다
-- 검색 결과와 평균 기온, 즐겨찾기 수는 getters로 뺐다. `averageTemp`는 다른 getter인 `filteredList`를 참조해야 해서 화살표 함수 대신 일반 함수로 적었다
-- 검색어 변경, 정렬 토글, 도시 선택, 즐겨찾기는 actions가 맡는다. 화면은 값을 직접 고치지 않고 action만 부른다
-- 목록과 상세가 같은 store를 보기 때문에 상세에서 켠 즐겨찾기가 목록에도 그대로 남는다
+- Pinia와 provide/inject 비교: 소규모 데이터 전달은 provide/inject로 가볍게 한다. 앱 전체에서 얽히고 디버깅이 중요한 데이터는 스토어로 관리한다
+- Store 핵심 개념: state는 반응형 데이터, getters는 읽기 전용 계산 값, actions는 상태를 바꾸거나 통신하는 함수다
+- Pinia 구축 3단계: `main.js`에 `createPinia()` 등록, `stores/` 아래 스토어 파일 생성, 컴포넌트에서 import해 인스턴스를 가동한다. 스토어 함수명은 use와 파일명과 Store를 붙여 짓는다
+- Frequent Mistakes: 스토어를 그냥 구조분해하면 반응형 연결이 끊긴다. state와 getters는 `storeToRefs`로 감싸야 하고 actions는 그냥 꺼내도 된다
+- 사례연구 authStore: 토큰과 사용자 정보를 스토어에 담고 localStorage로 새로고침을 견딘다. Navigation Guard가 이 스토어를 불러 접근 권한을 검사한다
+- Code Challenge (p211): `src/components/practices/library/StoreCounter.vue`에서 스캐폴딩 `counter.js`의 state, getters, actions를 화면에 붙였다
 
 개인 추가
 
-- `StoreStatusBar.vue`는 props를 하나도 받지 않고 store에서 선택 상태를 직접 꺼낸다. 과제 3에서 부모를 거쳐 내려보내던 것과 대비된다
-- 상세 화면에 store의 즐겨찾기 수를 함께 찍어 뒀다. 한 화면에서 고친 state가 다른 화면의 getter까지 흔드는 것을 눈으로 본다
+- `src/components/practices/pinia/` 아래에 네 종을 더 만들었다. Option 스타일 스토어, Setup 스타일 스토어, `storeToRefs` 비교, 부모 자식이 아닌 두 컴포넌트의 스토어 공유
+- `storeToRefs` 실습은 끊긴 값과 살아 있는 값을 나란히 두고 버튼을 누른다. 구조분해한 쪽만 0에서 멈춘다
+
+#### 과제 5: Weather Store (p212)
+
+`src/stores/configStore.js`와 `src/views/exercise/ex5/` 아래 화면 세 개
+
+- `configStore`는 단위를 담는다. state는 `unit`이고 초기값은 celsius다. getter `unitSymbol`은 현재 단위에 맞는 기호를 내주고 action `toggleUnit`이 섭씨와 화씨를 오간다
+- `UnitToggler.vue`는 현재 단위를 보여주고 바꾸는 버튼이다. Navigation Bar 옆에 붙였다
+- 메인과 상세 양쪽에 단위 설정을 적용했다. 원본 데이터는 섭씨 숫자로 두고 화씨일 때만 `Math.round((rawTemp * 9) / 5 + 32)`로 변환해 보여준다
+- 소개 화면에서 단위를 바꾸고 대시보드로 넘어가도 바뀐 단위가 그대로 붙어 있다
+
+개인 추가
+
+- 요구사항 4번을 추가 스토어 쪽으로 풀었다. `weatherStore.js`가 도시 배열과 검색어, 선택 상태를 state로 쥐고 검색 결과와 평균 기온, 즐겨찾기 수를 getters로 내준다
+- `averageTemp`는 다른 getter인 `filteredList`를 참조해야 해서 화살표 함수 대신 일반 함수로 적었다
+- `StoreStatusBar.vue`는 props를 하나도 받지 않고 스토어에서 선택 상태를 직접 꺼낸다. 과제 3에서 부모를 거쳐 내려보내던 것과 대비된다
+- `WeatherSummary.vue`에 단위 기호 prop을 기본값과 함께 붙였다. 넘기지 않으면 섭씨로 나와 앞 과제 화면은 그대로다
+
+#### 문법 실습 (p213-228)
+
+- HTTP와 REST API: 클라이언트가 요청을 보내고 서버가 응답한다. 메서드는 데이터베이스 CRUD와 맞물린다. 주소는 명사로만 짓고 행위는 메서드로 대신한다
+- Fetch와 Axios 비교: Fetch는 설치가 필요 없지만 JSON 변환과 에러 처리를 손으로 해야 한다. Axios는 설치가 필요한 대신 둘 다 자동이고 baseURL과 인터셉터를 지원한다
+- Axios 설치: `npm install axios`
+- Axios 메서드: `axios.get`, `post`, `put`, `patch`, `delete`가 각각 조회와 생성, 전체 수정, 일부 수정, 삭제를 맡는다. 전부 Promise를 반환한다
+- 비동기 호출 방식: `.then` 체이닝과 `async`/`await` 두 갈래가 있다. await 쪽은 위에서 아래로 읽히고 에러는 try catch로 잡는다
+
+#### Code Challenge: Axios (p229)
+
+`src/components/practices/library/` 아래 두 파일
+
+- `AxiosWeather.vue`는 Open Weather를 `await axios.get`으로 호출한다. `isLoading`으로 버튼을 잠그고 try catch finally로 성공과 실패, 뒷정리를 나눴다
+- `AxiosJson.vue`는 JSONPlaceholder로 GET, POST, PUT, DELETE를 한 화면에서 돌린다. Mount 시점에 GET으로 세 건만 읽어 온다
+- 가상 API라 POST와 PUT의 응답은 정상으로 오지만 서버 데이터가 실제로 바뀌지는 않는다. 응답 객체를 화면 목록에 직접 반영했다
+
+개인 추가
+
+- 교재는 통신 실패를 `alert()`으로 알리지만 화면 안 문구로 바꿨다. 경고창은 눌러서 닫기 전까지 다른 동작을 막는다
+- API 키를 코드에 박지 않고 `.env.local`의 `VITE_OPENWEATHER_API_KEY`에서 읽는다. 저장소가 공개라 키가 그대로 올라가면 안 된다
 
 최종본 반영
 
-- 최종본도 `src/stores/finalWeatherStore.js`로 상태를 옮기고 `storeToRefs`로 꺼내 쓴다
-- 모듈로 두던 `src/data/finalWeatherList.js`는 store가 대신해서 지웠다
-- 과제 5와는 store를 따로 둔다. 스냅샷과 누적본이 서로의 즐겨찾기를 건드리지 않는다
+- 최종본도 대시보드와 서비스 소개, 도시 상세 세 경로로 나누고 `WeatherSubNav.vue`를 붙였다
+- 상태는 `finalWeatherStore.js`가 쥐고 `storeToRefs`로 꺼내 쓴다. 단위 전환은 과제 5와 같은 `configStore`를 공유한다
+- 모듈로 두던 `src/data/finalWeatherList.js`는 스토어가 대신해서 지웠다
+- 도시 목록 데이터는 과제 4 스냅샷과 따로 둔다. 스냅샷과 누적본이 서로의 즐겨찾기를 건드리지 않는다
