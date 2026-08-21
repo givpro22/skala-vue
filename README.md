@@ -13,11 +13,20 @@ http://localhost:5173
 
 ## 구성
 
-화면 맨 위에 최종본을 두고 그 아래에 과제별 결과물을 순서대로 남겼다.
+화면을 라우터로 나눴다. 맨 위 색인에서 최종본, 과제 1~4, 문법 실습으로 바로 간다.
+
+- `/` — 최종본. 도시 상세는 `/final/:id`
+- `/exercise/1`, `/exercise/2`, `/exercise/3` — 과제 1, 2, 3
+- `/exercise/4` — 과제 4 목록. 도시 상세는 `/exercise/4/:id`
+- `/practice/basic`을 비롯한 여섯 단원 — 문법 실습
+- 어디에도 걸리지 않는 주소는 `NotFoundView.vue`가 받는다
+
+각 화면의 역할은 이렇다.
 
 - `src/components/exercise/WeatherFinal.vue` — 그때까지 배운 것을 모두 반영한 누적본. 새 단원이 끝날 때마다 여기를 고친다
 - 과제 1, 2, 3 — 각 단계에서 제출한 그대로 둔 스냅샷. 뒤 단원 문법을 섞지 않는다
-- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`)는 최종본과 과제 3이 함께 쓴다
+- 문법 실습은 `src/views/practice/` 아래에서 단원별로 나뉘고 `PracticeNav.vue`가 그 색인을 그린다
+- 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`)는 최종본과 과제 3, 과제 4가 함께 쓴다
 
 ## 실습 내용
 
@@ -126,3 +135,28 @@ http://localhost:5173
 
 - 요약 줄을 `WeatherSummary.vue`로 한 번 더 떼어내 computed 결과 네 개를 props로 받게 했다
 - 즐겨찾기는 자식이 직접 고치지 않고 부모에게 요청만 보낸다. props는 읽기 전용이라 값을 바꾸는 쪽은 데이터를 쥔 부모여야 한다
+
+### 4일차 (2026-08-21)
+
+#### 과제 4: Weather Router (p196)
+
+`src/views/exercise/WeatherListView.vue`, `src/views/exercise/WeatherDetailView.vue`와 `src/router/index.js`
+
+- `App.vue`는 상단 색인과 `router-view`만 남긴 껍데기로 줄였다. 한 페이지에 쌓아 두던 화면을 전부 경로로 떼어냈다
+- `/exercise/4`는 `WeatherListView.vue`. 과제 3의 자식 컴포넌트를 그대로 재사용한다. 상세보기 버튼은 alert 대신 `router.push`로 상세 경로를 연다
+- `/exercise/4/:id`는 `WeatherDetailView.vue`. `useRoute()`로 주소에 박힌 id를 꺼내 해당 도시를 찾는다. 목록에 없는 id면 안내 문구로 대신한다
+- 어디에도 걸리지 않는 주소는 `NotFoundView.vue`가 받는다
+- 도시 데이터는 `src/data/weatherList.js`로 빼서 목록과 상세가 같은 배열을 본다. 화면을 옮겨도 즐겨찾기가 풀리지 않는다
+
+개인 추가
+
+- 상세 화면에 이전, 다음 도시로 넘어가는 `router-link`를 두고 경로를 도시 id로 만들었다. 목록을 거치지 않고 옆 도시로 바로 넘어간다
+- 상세 화면에 주소 파라미터 id를 그대로 찍어 뒀다. 링크를 눌러 이동할 때 무엇이 바뀌는지 눈으로 확인하려고 남겼다
+- 색인에서 지금 열려 있는 경로는 `router-link-active` 클래스로 강조한다
+- 과제 1, 2, 3과 문법 실습도 전부 경로로 떼어내고 맨 위에 색인을 뒀다. 한 페이지를 길게 스크롤하지 않아도 된다
+- 문법 실습은 40개가 한 화면에 몰려 있어 여섯 단원으로 쪼개고 `PracticeNav.vue`로 하위 색인을 달았다
+
+최종본 반영
+
+- `WeatherFinal.vue`의 상세보기를 alert에서 `router.push`로 바꾸고 상세 화면을 `/final/:id`로 뺐다
+- 최종본 데이터는 `src/data/finalWeatherList.js`로 옮겼다. 과제 4 스냅샷과 배열을 나눠 둬서 즐겨찾기가 서로 섞이지 않는다

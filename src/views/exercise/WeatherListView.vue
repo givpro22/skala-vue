@@ -1,28 +1,28 @@
 <script setup>
-import { ref, computed, watch, watchEffect } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import BaseDashboardCard from './BaseDashboardCard.vue'
-import SearchBar from './SearchBar.vue'
-import WeatherCard from './WeatherCard.vue'
-import WeatherSummary from './WeatherSummary.vue'
-import { finalWeatherList } from '../../data/finalWeatherList.js'
+import BaseDashboardCard from '../../components/exercise/BaseDashboardCard.vue'
+import SearchBar from '../../components/exercise/SearchBar.vue'
+import WeatherCard from '../../components/exercise/WeatherCard.vue'
+import WeatherSummary from '../../components/exercise/WeatherSummary.vue'
+import { weatherList } from '../../data/weatherList.js'
 
 const router = useRouter()
 
 const searchQuery = ref('')
-const selectedCityInfo = ref('도시 카드를 선택해 주세요.')
 const selectedCityId = ref('')
+const selectedCityInfo = ref('도시 카드를 선택해 주세요.')
 const hotOnly = ref(false)
 
 const filteredWeatherList = computed(() =>
-  finalWeatherList.filter((city) => {
+  weatherList.filter((city) => {
     const matchName = city.name.includes(searchQuery.value)
     const matchTemp = hotOnly.value ? city.temp >= 25 : true
     return matchName && matchTemp
   }),
 )
 
-const favoriteCount = computed(() => finalWeatherList.filter((city) => city.favorite).length)
+const favoriteCount = computed(() => weatherList.filter((city) => city.favorite).length)
 
 const averageTemp = computed(() => {
   const list = filteredWeatherList.value
@@ -40,14 +40,6 @@ watch(selectedCityInfo, (newInfo, oldInfo) => {
   console.log(`[선택 변경] ${oldInfo} -> ${newInfo}`)
 })
 
-watch(favoriteCount, (newCount, oldCount) => {
-  console.log(`[즐겨찾기] ${oldCount}개에서 ${newCount}개로 변경`)
-})
-
-watchEffect(() => {
-  console.log(`[검색어 추적] 현재 입력값: "${searchQuery.value}"`)
-})
-
 const updateQuery = (value) => {
   searchQuery.value = value
 }
@@ -61,9 +53,9 @@ const selectCard = (city) => {
   selectedCityInfo.value = `${city.name}이 선택되었습니다.`
 }
 
-// 과제 4에서 배운 라우터를 붙였다. alert 대신 상세 경로를 연다
+// 과제 3에서 alert을 띄우던 자리를 상세 페이지 이동으로 바꿨다
 const goDetail = (city) => {
-  router.push(`/final/${city.id}`)
+  router.push(`/exercise/4/${city.id}`)
 }
 
 const toggleFavorite = (city) => {
@@ -72,7 +64,10 @@ const toggleFavorite = (city) => {
 </script>
 
 <template>
-  <div class="weather-final">
+  <div class="weather-list-view">
+    <h1>⛅ 과제 4: 날씨 (라우터)</h1>
+    <hr />
+
     <BaseDashboardCard title="도시 검색">
       <SearchBar
         :query="searchQuery"
@@ -112,7 +107,7 @@ const toggleFavorite = (city) => {
 </template>
 
 <style scoped>
-.weather-final {
+.weather-list-view {
   margin-bottom: 40px;
 }
 
