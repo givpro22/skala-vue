@@ -25,13 +25,13 @@ const openCount = computed(() =>
     <p class="intro">
       막혔던 지점과 어떻게 풀었는지를 날짜별로 모았다. 앞의 넷은 강의를 들은 날이고, 마지막 하나는
       강의가 끝난 뒤 저장소를 포트폴리오로 묶으면서 겪은 것이라 Day 번호를 붙이지 않았다. 커밋
-      히스토리와 코드에 남은 주석에서 확인한 것만 적었고, 흔적을 찾지 못한 날은 비워 뒀다. 아직 못
-      고친 것도 그대로 뒀다. 본문에 적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
+      히스토리와 코드에 남은 주석에서 확인한 것만 적었고, 흔적을 찾지 못한 날은 비워 뒀다. 본문에
+      적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
     </p>
 
     <div class="counts">
       <el-tag type="info" effect="plain">전체 {{ totalCount }}건</el-tag>
-      <el-tag type="warning" effect="plain">미해결 {{ openCount }}건</el-tag>
+      <el-tag v-if="openCount > 0" type="warning" effect="plain">미해결 {{ openCount }}건</el-tag>
     </div>
 
     <el-collapse v-model="openDays">
