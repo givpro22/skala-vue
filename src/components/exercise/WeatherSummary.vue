@@ -37,6 +37,6 @@ defineProps({
   margin: 0 0 16px;
   padding-left: 18px;
   font-size: 14px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 </style>

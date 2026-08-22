@@ -21,17 +21,17 @@ defineProps({
 .dashboard-card {
   margin-bottom: 16px;
   padding: 14px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
 }
 
 .card-title {
   margin: 0 0 10px;
   font-size: 15px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .empty-slot {
-  color: #999;
+  color: var(--color-text-muted);
 }
 </style>

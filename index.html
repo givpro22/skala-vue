@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="ko">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <title>SKALA Vue.js 실습 아카이브</title>
+    <script>
+      // 앱이 뜨기 전에 먼저 걸어 둔다. 이게 없으면 저장해 둔 테마와 시스템 설정이
+      // 다를 때 첫 프레임에 반대 색이 한 번 번쩍인다
+      (function () {
+        var mode = localStorage.getItem('skala-theme') || 'system'
+        var dark =
+          mode === 'system' ? window.matchMedia('(prefers-color-scheme: dark)').matches : mode === 'dark'
+        if (mode !== 'system') {
+          document.documentElement.setAttribute('data-theme', mode)
+        }
+        if (dark) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="app"></div>

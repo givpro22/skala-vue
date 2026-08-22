@@ -15,7 +15,7 @@ import InjectLeaf from './InjectLeaf.vue'
 .middle {
   margin-top: 10px;
   padding: 12px;
-  border: 1px dashed #ccc;
+  border: 1px dashed var(--color-border);
   border-radius: 6px;
 }
 </style>

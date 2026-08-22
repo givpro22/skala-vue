@@ -162,14 +162,14 @@ const toggleFavorite = (city) => {
 
 .weather-card {
   padding: 14px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   cursor: pointer;
 }
 
 .weather-card.selected {
-  border-color: #42b883;
-  background-color: #f2fbf7;
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-soft);
 }
 
 .card-head {
@@ -199,18 +199,18 @@ const toggleFavorite = (city) => {
 }
 
 .label.hot {
-  color: #d63031;
+  color: var(--color-temp-hot);
 }
 
 .label.cool {
-  color: #0984e3;
+  color: var(--color-temp-cold);
 }
 
 .detail {
   margin: 0 0 10px;
   padding-left: 18px;
   font-size: 14px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .status-bar {

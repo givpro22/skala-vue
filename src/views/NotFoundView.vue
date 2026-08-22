@@ -28,6 +28,6 @@ const shownPath = computed(() => {
 }
 
 .not-found-view a {
-  color: #42b883;
+  color: var(--color-accent);
 }
 </style>

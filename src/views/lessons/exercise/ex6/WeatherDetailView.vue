@@ -104,11 +104,11 @@ const displayTemp = computed(() => (city.value === null ? 0 : toDisplay(city.val
 .detail {
   margin: 0;
   padding-left: 18px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .empty {
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 .move-bar {

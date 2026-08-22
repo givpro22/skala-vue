@@ -25,7 +25,7 @@ const handleChild2 = () => {
     <br />
 
     <h3>2) .stop (이벤트 버블링 막기)</h3>
-    <div @click="handleBox" style="padding: 20px; background-color: #eee">
+    <div @click="handleBox" style="padding: 20px; background-color: #eee; color: #333">
       <p>부모 영역 (클릭 시 alert 발동)</p>
       <button @click="handleChild1">버블링 발생 버튼</button>
       <button @click.stop="handleChild2">버블링 차단 버튼</button>

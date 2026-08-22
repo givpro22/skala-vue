@@ -5,7 +5,7 @@
 <style scoped>
 .base-input {
   padding: 6px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
 }
 </style>

@@ -217,7 +217,7 @@ const groups = [
 
 .intro {
   margin: 8px 0 20px;
-  color: #666;
+  color: var(--color-text-soft);
 }
 
 .day-nav {
@@ -225,13 +225,14 @@ const groups = [
   gap: 14px;
   margin-bottom: 28px;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
+  background: var(--color-surface);
   font-size: 14px;
 }
 
 .day-nav a {
-  color: #555;
+  color: var(--color-text-soft);
   text-decoration: none;
 }
 
@@ -243,12 +244,12 @@ const groups = [
 .day-group h2 {
   margin-bottom: 2px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .day-note {
   margin: 8px 0 16px;
-  color: #888;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
@@ -262,8 +263,9 @@ const groups = [
 
 .item {
   padding: 14px 16px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
+  background: var(--color-surface);
 }
 
 .item-head {
@@ -276,31 +278,31 @@ const groups = [
 .kind {
   padding: 2px 8px;
   border-radius: 4px;
-  background-color: #f0f0f0;
-  color: #666;
+  background-color: var(--color-surface-mute);
+  color: var(--color-text-soft);
   font-size: 12px;
 }
 
 .item-link {
-  color: #42b883;
+  color: var(--color-accent);
   font-weight: bold;
   text-decoration: none;
 }
 
 .pages {
-  color: #aaa;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
 .desc {
   margin: 8px 0 0;
-  color: #555;
+  color: var(--color-text-soft);
   font-size: 14px;
 }
 
 .source {
   margin: 6px 0 0;
-  color: #aaa;
+  color: var(--color-text-muted);
   font-family: monospace;
   font-size: 12px;
 }

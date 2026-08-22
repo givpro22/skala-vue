@@ -46,7 +46,7 @@ const productRate = ref(4)
 }
 
 .hint {
-  color: #909399;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 </style>

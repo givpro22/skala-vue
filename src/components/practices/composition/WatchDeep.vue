@@ -51,7 +51,7 @@ watch(
 .monitor {
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 </style>

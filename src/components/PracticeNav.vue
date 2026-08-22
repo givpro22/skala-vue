@@ -41,18 +41,18 @@ const unitOf = (path) => path.split('/').pop()
   gap: 12px;
   margin-bottom: 20px;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   font-size: 14px;
 }
 
 .practice-nav a {
-  color: #555;
+  color: var(--color-text-soft);
   text-decoration: none;
 }
 
 .practice-nav a.current {
-  color: #42b883;
+  color: var(--color-accent);
   font-weight: bold;
 }
 </style>

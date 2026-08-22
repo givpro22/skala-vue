@@ -25,6 +25,6 @@ import SlotScopedChild from './SlotScopedChild.vue'
 .display-panel {
   padding: 10px;
   border-radius: 4px;
-  background-color: #f4f4f4;
+  background-color: var(--color-surface-mute);
 }
 </style>

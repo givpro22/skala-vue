@@ -88,7 +88,7 @@ const goHome = () => {
 .detail {
   margin: 0 0 12px;
   padding-left: 18px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .favorite {
@@ -97,7 +97,7 @@ const goHome = () => {
 }
 
 .empty {
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 .move-bar {

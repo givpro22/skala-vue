@@ -91,11 +91,11 @@ const goHome = () => {
 .detail {
   margin: 0;
   padding-left: 18px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .empty {
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 .move-bar {
@@ -107,11 +107,11 @@ const goHome = () => {
 }
 
 .move {
-  color: #42b883;
+  color: var(--color-accent);
 }
 
 .move.disabled {
-  color: #bbb;
+  color: var(--color-text-muted);
 }
 
 .to-home {

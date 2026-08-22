@@ -5,10 +5,10 @@
 <style scoped>
 .base-button {
   padding: 6px 14px;
-  border: 1px solid #42b883;
+  border: 1px solid var(--color-accent);
   border-radius: 4px;
-  background-color: white;
-  color: #42b883;
+  background-color: var(--color-surface);
+  color: var(--color-accent);
   cursor: pointer;
 }
 </style>

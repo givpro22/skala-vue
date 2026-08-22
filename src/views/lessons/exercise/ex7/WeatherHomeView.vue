@@ -128,7 +128,7 @@ const toggleFavorite = (city) => {
 
 .loaded-at {
   margin: 10px 0 0;
-  color: #909399;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 

@@ -21,7 +21,7 @@ const unitLabel = computed(() => (configStore.unit === 'fahrenheit' ? '화씨' :
   gap: 8px;
   margin-left: auto;
   font-size: 14px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .unit-toggler button {

@@ -21,33 +21,116 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* semantic color variables for this project */
+/* 화면에서 쓰는 색은 전부 여기를 거친다. 컴포넌트에 색을 직접 박으면 한쪽 테마에서 깨진다 */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --color-background: #ffffff;
+  --color-background-soft: #f8fafc;
+  --color-background-mute: #f1f4f8;
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-surface: #ffffff;
+  --color-surface-soft: #f8fafc;
+  --color-surface-mute: #f1f4f8;
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-border: #e2e6ec;
+  --color-border-hover: #cbd2dc;
+  --color-border-strong: #d4dae2;
+
+  --color-heading: #2c3e50;
+  --color-text: #333333;
+  --color-text-soft: #5a6470;
+  --color-text-muted: #8b939e;
+
+  --color-accent: #42b883;
+  --color-accent-hover: #369a6c;
+  --color-accent-soft: rgba(66, 184, 131, 0.12);
+
+  --color-code-bg: #f5f7fa;
+  --color-shadow: rgba(15, 23, 42, 0.08);
+
+  --color-danger: #d63031;
+
+  --color-temp-hot: #d63031;
+  --color-temp-cold: #0984e3;
+
+  --hero-sky-1: #f7f9fc;
+  --hero-sky-2: #e9eef5;
+  --hero-sky-3: #dde4ee;
 
   --section-gap: 160px;
 }
 
+/* 다크 값은 한 곳에만 적고 두 선택자가 같이 참조한다.
+   시스템 설정을 따르는 경우와 사용자가 직접 고른 경우를 둘 다 받아야 한다 */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--vt-c-black);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+  :root:not([data-theme='light']) {
+    --color-background: #16181d;
+    --color-background-soft: #1e2127;
+    --color-background-mute: #262a31;
 
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
+    --color-surface: #1e2127;
+    --color-surface-soft: #232730;
+    --color-surface-mute: #262a31;
 
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-border: #2f343c;
+    --color-border-hover: #454c57;
+    --color-border-strong: #3d434d;
+
+    --color-heading: #e8eaed;
+    --color-text: #d0d4da;
+    --color-text-soft: #a8aeb8;
+    --color-text-muted: #7d848f;
+
+    --color-accent: #4ade9b;
+    --color-accent-hover: #6ce9b1;
+    --color-accent-soft: rgba(74, 222, 155, 0.14);
+
+    --color-code-bg: #14171c;
+    --color-shadow: rgba(0, 0, 0, 0.4);
+
+    --color-danger: #ff8a87;
+
+    --color-temp-hot: #ff8a87;
+    --color-temp-cold: #74b9ff;
+
+    --hero-sky-1: #1b2029;
+    --hero-sky-2: #151a22;
+    --hero-sky-3: #10141a;
   }
+}
+
+:root[data-theme='dark'] {
+  --color-background: #16181d;
+  --color-background-soft: #1e2127;
+  --color-background-mute: #262a31;
+
+  --color-surface: #1e2127;
+  --color-surface-soft: #232730;
+  --color-surface-mute: #262a31;
+
+  --color-border: #2f343c;
+  --color-border-hover: #454c57;
+  --color-border-strong: #3d434d;
+
+  --color-heading: #e8eaed;
+  --color-text: #d0d4da;
+  --color-text-soft: #a8aeb8;
+  --color-text-muted: #7d848f;
+
+  --color-accent: #4ade9b;
+  --color-accent-hover: #6ce9b1;
+  --color-accent-soft: rgba(74, 222, 155, 0.14);
+
+  --color-code-bg: #14171c;
+  --color-shadow: rgba(0, 0, 0, 0.4);
+
+  --color-danger: #ff8a87;
+
+  --color-temp-hot: #ff8a87;
+  --color-temp-cold: #74b9ff;
+
+  --hero-sky-1: #1b2029;
+  --hero-sky-2: #151a22;
+  --hero-sky-3: #10141a;
 }
 
 *,
@@ -63,8 +146,8 @@ body {
   color: var(--color-text);
   background: var(--color-background);
   transition:
-    color 0.5s,
-    background-color 0.5s;
+    color 0.3s,
+    background-color 0.3s;
   line-height: 1.6;
   font-family:
     Inter,
@@ -83,4 +166,11 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-heading);
 }

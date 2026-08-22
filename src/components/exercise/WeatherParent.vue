@@ -130,7 +130,7 @@ const toggleFavorite = (city) => {
 
 .empty {
   padding: 20px;
-  color: #888;
+  color: var(--color-text-muted);
   text-align: center;
 }
 

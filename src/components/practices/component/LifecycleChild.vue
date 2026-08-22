@@ -35,7 +35,7 @@ onUnmounted(() => {
 .lifecycle-child {
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid #42b883;
+  border: 1px solid var(--color-accent);
   border-radius: 6px;
 }
 </style>

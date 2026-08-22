@@ -19,7 +19,7 @@ const userCount = ref(150)
 .base-card {
   margin-top: 10px;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 </style>

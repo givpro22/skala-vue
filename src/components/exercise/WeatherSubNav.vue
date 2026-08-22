@@ -22,18 +22,18 @@ defineProps({
   gap: 16px;
   margin-bottom: 16px;
   padding: 10px 12px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
   font-size: 14px;
 }
 
 .weather-sub-nav a {
-  color: #555;
+  color: var(--color-text-soft);
   text-decoration: none;
 }
 
 .weather-sub-nav a.router-link-exact-active {
-  color: #42b883;
+  color: var(--color-accent);
   font-weight: bold;
 }
 </style>

@@ -15,7 +15,7 @@ const counter = useOptionCounterStore()
 <style scoped>
 .share-box {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 

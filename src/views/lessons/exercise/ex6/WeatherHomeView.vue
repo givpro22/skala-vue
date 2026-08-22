@@ -120,7 +120,7 @@ const goDetail = (city) => {
 
 .loaded-at {
   font-size: 13px;
-  color: #888;
+  color: var(--color-text-muted);
 }
 
 .card-list {
@@ -131,12 +131,12 @@ const goDetail = (city) => {
 
 .empty {
   padding: 20px;
-  color: #888;
+  color: var(--color-text-muted);
   text-align: center;
 }
 
 .error {
-  color: #d63031;
+  color: var(--color-danger);
 }
 
 .status-bar {

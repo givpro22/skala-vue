@@ -114,7 +114,7 @@ onMounted(() => {
 }
 
 .message {
-  color: #42b883;
+  color: var(--color-accent);
   font-size: 14px;
 }
 
@@ -124,7 +124,7 @@ onMounted(() => {
   gap: 8px;
   margin-bottom: 8px;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 

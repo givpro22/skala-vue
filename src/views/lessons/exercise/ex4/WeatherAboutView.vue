@@ -40,7 +40,7 @@ const goHome = () => {
 .intro {
   margin: 0 0 14px;
   padding-left: 18px;
-  color: #555;
+  color: var(--color-text-soft);
 }
 
 .to-home {
