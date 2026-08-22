@@ -1,6 +1,7 @@
 export const troubleshootingDays = [
   {
     day: 1,
+    label: 'Day 1',
     date: '2026-08-18',
     topic: '프로젝트 생성, 반응형 데이터, v-bind',
     note: '커밋과 README에서 막혔던 흔적을 찾지 못했다. 이 날 심긴 문제가 하나 있긴 한데 발견은 4일차라 그쪽에 적었다.',
@@ -8,6 +9,7 @@ export const troubleshootingDays = [
   },
   {
     day: 2,
+    label: 'Day 2',
     date: '2026-08-19',
     topic: '디렉티브, 이벤트, 폼 바인딩, 과제 1, Composition API',
     note: '',
@@ -58,6 +60,7 @@ export const troubleshootingDays = [
   },
   {
     day: 3,
+    label: 'Day 3',
     date: '2026-08-20',
     topic: '과제 2, 컴포넌트 등록과 라이프사이클, Props, Emits, Slot, 과제 3',
     note: '',
@@ -92,6 +95,7 @@ export const troubleshootingDays = [
   },
   {
     day: 4,
+    label: 'Day 4',
     date: '2026-08-21',
     topic: '과제 4 Router, Pinia, 과제 5, Axios, 과제 6, Element Plus, 과제 7',
     note: '하루에 과제 넷과 단원 셋이 몰린 날이라 항목도 여기 몰려 있다.',
@@ -209,6 +213,109 @@ export const troubleshootingDays = [
         commits: ['59da593'],
         files: ['src/components/exercise/WeatherSubNav.vue'],
         resolved: false,
+      },
+    ],
+  },
+  {
+    day: 'extra',
+    label: '강의 후 정리',
+    date: '2026-08-22',
+    topic: '메인홈 스피어 사진, 메인홈과 최종본 스토어 합치기, API 키 설정',
+    note: '강의 일정이 끝난 뒤 저장소를 포트폴리오로 묶으면서 겪은 것들이다. 강의를 들으며 막힌 게 아니라서 Day 5로 세우지 않고 따로 뒀다. 아직 커밋하지 않은 작업 구간이라 커밋 해시 자리가 비어 있다.',
+    items: [
+      {
+        title: '도시 카드 사진이 그 도시와 아무 상관이 없었다',
+        symptom:
+          '스피어 카드와 최종본 목록이 heroCities의 photo를 그대로 띄운다. 그런데 어느 카드에도 그 도시로 보이는 사진이 없었다. 서울 카드에 서울이 아닌 곳이 떠 있었다.',
+        cause:
+          'photo가 https://picsum.photos/seed/${id}/300/300이었다. picsum은 씨앗값으로 아무 사진이나 돌려주는 자리채움 서비스다. 씨앗이 도시 id라 카드마다 사진이 고정되긴 하는데 그 사진이 그 도시일 이유는 없다. 스피어를 만들 때 자리채움이라고 주석에 적어 두고 그대로 잊었다.',
+        fix: '위키백과 API로 도시별 사진을 뽑아 URL을 박았다. 처음에는 도시 문서(서울특별시, 광주광역시 같은 것)의 대표 이미지를 썼는데 광주, 대전, 울산, 포항, 여수, 창원은 지도 그림이 나오고 대구, 목포, 통영은 사진 여러 장을 이어 붙인 콜라주가 나왔다. 행정구역 문서의 대표 이미지가 사진이라는 보장이 없다. 명소 문서(무등산, 팔공산, 유달산)로 갈아타서 스무 곳을 다시 뽑았다. 대전은 한밭수목원 사진이 커먼즈가 아니라 한국어 위키 로컬 업로드라 비자유 저작물일 수 있어서 커먼즈에 있는 장태산으로 한 번 더 바꿨다.',
+        learned:
+          '자리채움을 넣을 때는 주석 말고 다시 볼 곳에 적어 둔다. 코드 옆 주석은 그 파일을 다시 열 일이 없으면 안 보인다. 위키 이미지는 URL이 /wikipedia/commons/인지 본다. /wikipedia/ko/면 그 언어판에만 올라온 파일이라 재사용 조건이 다르다.',
+        commits: [],
+        files: ['src/data/heroCities.js'],
+        resolved: true,
+      },
+      {
+        title: '도시 사진이 한 장도 안 뜨는데 콘솔은 깨끗했다',
+        symptom:
+          '사진 주소를 위키미디어 것으로 갈아 끼웠더니 스피어 카드가 전부 빈 채로 돌았다. 에러가 한 줄도 안 찍혀서 CORS나 CSP 쪽을 한참 뒤졌다.',
+        cause:
+          '두 가지가 겹쳤다. 하나는 주소다. 위키미디어는 썸네일을 아무 폭으로나 만들어 주지 않고 정해 둔 크기만 내준다. 처음에 960px로 스무 장을 확인해 전부 200을 받아 놓고, 카드에 쓰기엔 과하다 싶어 480px로 낮춘 뒤 다시 확인하지 않았다. 480은 그 목록에 없어서 스무 장이 한꺼번에 400으로 떨어졌다. 응답 본문에 쓸 수 있는 크기를 보라고 적혀 있었는데 응답을 열어 볼 생각을 못 했다. 직접 재 보니 120, 250, 500, 960, 1280은 200이고 400, 480, 640, 800은 400이다. 다른 하나는 콘솔이 조용했던 이유다. TextureLoader의 load는 네 번째 인자로 실패 콜백을 받는데 안 넘기면 실패를 그냥 삼킨다.',
+        fix: '주소 스무 개를 480px에서 500px로 바꾸고 전부 200이 오는 것을 다시 확인했다. loadSprites에 실패 콜백을 붙여 다음에는 같은 식으로 숨지 않게 했다. README에 적어 둔 폭도 같이 고쳤다.',
+        code: "loader.load(city.photo, cropToSquare, undefined, () => {\n  console.error('도시 사진 로드 실패:', city.name, city.photo)\n})",
+        learned:
+          '값을 바꿨으면 바꾼 값으로 다시 확인한다. 한 번 통과한 확인은 그 값에 대한 것이지 그 코드에 대한 것이 아니다. 화면이 비었는데 콘솔이 깨끗하면 아무 일도 안 일어난 게 아니라 아무도 말을 안 하는 것일 수 있다. 조용히 실패하는 로더는 콜백을 붙여 말하게 만든다.',
+        commits: [],
+        files: ['src/data/heroCities.js', 'src/components/home/SphereHero.vue'],
+        resolved: true,
+      },
+      {
+        title: '사진이 옆으로 늘어나 보인다',
+        symptom:
+          '위키 사진으로 갈아 끼우자 스피어 카드의 사진이 가로로 퍼져 보였다. picsum은 정사각을 돌려줘서 이 문제가 없었다.',
+        cause:
+          '스프라이트 카드는 CARD_SIZE 1.7짜리 정사각인데 위키 사진은 4:3, 3:2로 제각각이다. 스프라이트 재질은 텍스처를 면에 꽉 채우고 원본 비율을 봐 주지 않는다.',
+        fix: '텍스처를 입힐 때 repeat과 offset으로 긴 쪽을 잘라 내고 가운데 정사각만 쓰게 했다. 캔버스에 다시 그려서 자르는 방법도 있는데 그러면 사진 스무 장을 전부 한 번 더 그려야 한다.',
+        code: 'texture.repeat.set(height / width, 1)\ntexture.offset.set((1 - height / width) / 2, 0)',
+        learned: '이미지를 손대기 전에 텍스처 옵션부터 본다. 잘라 쓰는 기능이 재질 쪽에 이미 있다.',
+        commits: [],
+        files: ['src/components/home/SphereHero.vue'],
+        resolved: true,
+      },
+      {
+        title: '메인홈을 먼저 열면 최종본 목록이 덜 찬 채로 멈춘다',
+        symptom:
+          '메인홈을 지나 최종본 목록으로 들어가면 도시가 몇 곳만 있고 더 늘지 않았다. 받아 온 시각도 계속 비어 있었다. 최종본 주소를 새로 열면 멀쩡했다. 처음에는 두 화면이 따로 논다고만 느꼈다.',
+        cause:
+          '메인홈이 기온만 담는 전용 스토어를 따로 쥐고 있어서 최종본 스토어로 합쳤다. 합치고 나니 적재 함수가 둘이 됐다. 메인홈은 loadStream으로 스무 건을 한꺼번에 띄우고 도착 순으로 채우고, 최종본은 loadAll로 axios.all에 묶어 한 번에 받았다. 그런데 loadStream이 requested를 켜 두면 최종본 onMounted의 if (!live.requested) live.loadAll()이 통째로 건너뛰어진다. 그래서 최종본은 스트림으로 들어온 만큼만 보이고 loadedAt이 영영 비어 있었다.',
+        fix: '두 화면이 loadStream 하나를 부르게 합쳤다. loadAll은 다시 불러오기 버튼 전용으로 남겼다.',
+        learned:
+          '중복 요청을 막는 깃발을 진입점 여럿이 나눠 쓰면 한쪽이 켠 깃발이 다른 쪽의 초기화를 막는다. 증상이 데이터가 아니라 화면 흐름으로 보여서 원인을 늦게 찾았다. 화면 하나만 열어 보면 재현되지 않는다.',
+        commits: [],
+        files: [
+          'src/stores/finalWeatherStore.js',
+          'src/views/lessons/final/WeatherHomeView.vue',
+          'src/components/home/SphereHero.vue',
+        ],
+        resolved: true,
+      },
+      {
+        title: '다시 불러오기를 누르면 즐겨찾기가 다 꺼진다',
+        symptom: '최종본 목록에서 즐겨찾기를 몇 개 켜 두고 다시 불러오기를 누르면 전부 꺼졌다.',
+        cause:
+          'loadAll이 this.cityList = results로 목록을 통째로 갈아 끼운다. 새로 만든 항목에는 fetchCurrentWeather가 favorite: false를 새로 달아 준다. 즐겨찾기는 서버가 모르는 값이라 응답에 들어 있을 수가 없다.',
+        fix: '갈아 끼우기 전에 켜 둔 것만 id로 빼 놨다가 새 목록에 되붙였다.',
+        code: 'favorite: favorites[weather.id] === true',
+        learned:
+          '서버가 모르는 값을 목록 항목에 얹어 뒀으면 목록을 갈아 끼울 때 그 값도 같이 날아간다.',
+        commits: [],
+        files: ['src/stores/finalWeatherStore.js'],
+        resolved: true,
+      },
+      {
+        title: '.gitignore에 .env가 빠져 있었다',
+        symptom: 'API 키를 .env에 넣고 나서 무시 목록을 확인했더니 .env가 없었다.',
+        cause:
+          '스캐폴딩이 넣어 준 *.local이 .env.local은 걸러 준다. 확장자가 붙지 않은 .env는 그 패턴에 안 걸린다. 그동안 키를 .env.local에 뒀어서 몰랐다.',
+        fix: '.env와 .env.*를 넣고 !.env.example로 예제만 예외로 뺐다. git log --all -- .env로 지금까지 올라간 적이 없는 것도 같이 확인했다.',
+        learned:
+          '무시되고 있을 거라고 짐작한 파일은 한 번 확인한다. 이미 올라간 뒤라면 무시 목록에 넣어도 늦다.',
+        commits: [],
+        files: ['.gitignore'],
+        resolved: true,
+      },
+      {
+        title: '새로 발급한 OpenWeather 키가 401을 돌려준다',
+        symptom: '키를 .env에 넣었는데도 메인홈과 최종본이 전부 빈 채로 뜨고 콘솔에 401이 찍혔다.',
+        cause:
+          '처음에는 .env 문법을 의심했다. 등호 옆에 공백을 두고 값을 따옴표로 감싸 뒀기 때문이다. Vite의 loadEnv로 찍어 보니 32자 키가 그대로 파싱되고 있었다. 키를 API에 직접 던져 봐도 401이라 읽는 쪽이 아니라 키 자체가 아직 활성화 전이었다. OpenWeather 신규 키는 발급하고 나서 쓸 수 있게 되기까지 시간이 걸린다.',
+        fix: '기다리니 풀렸다. 코드는 한 줄도 안 고쳤다. 얼마쯤 지나 같은 키를 그대로 다시 던져 보니 200이 왔고 스무 곳을 전부 정상으로 받는다. 확인하는 김에 .env는 dev 서버가 뜰 때 한 번만 읽힌다는 것도 알았다. 값을 고쳤으면 서버를 껐다 켜야 반영된다.',
+        learned:
+          '키가 안 먹으면 코드가 키를 제대로 읽는지와 키 자체가 살아 있는지를 나눠서 본다. 둘을 섞어서 보면 계속 코드만 고치게 된다.',
+        commits: [],
+        files: ['.env.example', 'src/api/weatherApi.js'],
+        resolved: true,
       },
     ],
   },

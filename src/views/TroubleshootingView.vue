@@ -23,9 +23,10 @@ const openCount = computed(() =>
     <h1>트러블슈팅 기록</h1>
 
     <p class="intro">
-      강의를 들으며 막혔던 지점과 어떻게 풀었는지를 날짜별로 모았다. 커밋 히스토리와 코드에 남은
-      주석에서 확인한 것만 적었고, 흔적을 찾지 못한 날은 비워 뒀다. 아직 못 고친 것도 그대로 뒀다.
-      본문에 적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
+      막혔던 지점과 어떻게 풀었는지를 날짜별로 모았다. 앞의 넷은 강의를 들은 날이고, 마지막 하나는
+      강의가 끝난 뒤 저장소를 포트폴리오로 묶으면서 겪은 것이라 Day 번호를 붙이지 않았다. 커밋
+      히스토리와 코드에 남은 주석에서 확인한 것만 적었고, 흔적을 찾지 못한 날은 비워 뒀다. 아직 못
+      고친 것도 그대로 뒀다. 본문에 적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
     </p>
 
     <div class="counts">
@@ -41,7 +42,7 @@ const openCount = computed(() =>
       >
         <template #title>
           <div class="day-title">
-            <strong>Day {{ entry.day }}</strong>
+            <strong>{{ entry.label }}</strong>
             <span class="day-date">{{ entry.date }}</span>
             <span class="day-topic">{{ entry.topic }}</span>
             <el-tag size="small" :type="entry.items.length ? 'success' : 'info'" effect="plain">
@@ -105,7 +106,7 @@ const openCount = computed(() =>
 }
 
 .intro {
-  color: #555;
+  color: var(--color-text-soft);
   line-height: 1.7;
 }
 
@@ -123,26 +124,27 @@ const openCount = computed(() =>
 }
 
 .day-date {
-  color: #888;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
 .day-topic {
-  color: #555;
+  color: var(--color-text-soft);
   font-size: 13px;
 }
 
 .day-note {
   margin: 0 0 16px;
-  color: #777;
+  color: var(--color-text-muted);
   font-size: 14px;
 }
 
 .item {
   margin-bottom: 20px;
   padding: 16px;
-  border: 1px solid #e4e7ed;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
+  background: var(--color-surface);
 }
 
 .item-head {
@@ -166,19 +168,22 @@ dl {
 }
 
 dt {
-  color: #888;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 
 dd {
   margin: 0;
   line-height: 1.7;
+  /* 이게 없으면 그리드 칸이 코드 한 줄의 최소 폭까지 벌어져서
+     좁은 화면에서 pre의 overflow-x가 걸리지 않고 문서 전체가 옆으로 밀린다 */
+  min-width: 0;
 }
 
 pre {
   margin: 8px 0 0;
   padding: 10px;
-  background: #f5f7fa;
+  background: var(--color-code-bg);
   border-radius: 4px;
   font-size: 13px;
   overflow-x: auto;
@@ -191,11 +196,11 @@ pre {
   flex-wrap: wrap;
   margin-top: 14px;
   padding-top: 12px;
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--color-border);
 }
 
 .item-foot code {
-  color: #777;
+  color: var(--color-text-muted);
   font-size: 12px;
 }
 </style>
