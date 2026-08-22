@@ -11,6 +11,51 @@ npm run dev
 
 http://localhost:5173
 
+Node는 20.19 이상이나 22.12 이상이 필요하다. `package.json`의 engines에 적어 뒀다. 배포용으로 묶을 때는 `npm run build`, 묶은 결과를 로컬에서 열어 볼 때는 `npm run preview`를 쓴다.
+
+## 실행에 필요한 키
+
+메인홈과 최종본, 과제 6과 7, Axios 실습은 OpenWeatherMap 키가 있어야 돈다. `.env.example`을 복사해 `.env.local`을 만들고 본인 키를 넣는다.
+
+```
+cp .env.example .env.local
+```
+
+```
+VITE_OPENWEATHER_API_KEY=발급받은_키
+```
+
+`.env`와 `.env.`로 시작하는 파일은 gitignore 대상이고 `.env.example`만 예외로 올라간다. 저장소가 공개라 키가 그대로 올라가면 안 된다.
+
+여기서 두 번 헤맸다. 하나는 새로 발급받은 키가 바로 듣지 않는다는 것이다. 활성화까지 시간이 걸려서 그 사이에는 401이 돌아온다. 키를 잘못 붙여 넣은 줄 알고 한참 들여다봤다. 다른 하나는 dev 서버가 뜰 때 환경 변수를 한 번만 읽는다는 것이다. 서버를 켜 둔 채로 키를 고치면 화면은 그대로다. 껐다 켜야 반영된다.
+
+## 폴더 구조
+
+```
+src/
+├── main.js
+├── App.vue
+├── api/weatherApi.js       OpenWeatherMap, Open-Meteo 호출
+├── router/index.js
+├── data/                   도시 목록, 트러블슈팅 기록
+├── stores/                 Pinia 스토어
+├── assets/                 공통 CSS
+├── components/
+│   ├── home/               메인홈 히어로와 3D 스피어
+│   ├── exercise/           과제 화면이 나눠 쓰는 자식 컴포넌트
+│   ├── practices/          단원별 문법 실습
+│   └── icons/
+└── views/
+    ├── MainHomeView.vue
+    ├── TroubleshootingView.vue
+    ├── NotFoundView.vue
+    └── lessons/
+        ├── LessonsView.vue
+        ├── practice/       문법 실습 화면
+        ├── exercise/       과제 스냅샷. 과제 4부터는 ex4에서 ex7까지 하위 폴더
+        └── final/          누적본
+```
+
 ## 구성
 
 화면은 셋으로 갈린다. 메인홈, 실습 아카이브, 트러블슈팅이다. 첫 화면만 미리 싣고 나머지는 지연 로딩으로 걸어 뒀다.
@@ -34,29 +79,41 @@ http://localhost:5173
 - `src/views/lessons/practice/` — 문법 실습이 단원별로 나뉘고 `PracticeNav.vue`가 그 색인을 그린다
 - 자식 컴포넌트(`BaseDashboardCard`, `SearchBar`, `WeatherCard`, `WeatherSummary`, `WeatherSubNav`)는 누적본과 과제들이 함께 쓴다
 
-도시 목록은 두 벌이다. 아카이브 화면은 `src/data/cityCoords.js`의 여섯 곳을 보고 메인홈은 `src/data/heroCities.js`의 스무 곳을 본다. 나눠 둔 이유는 메인홈에서 도시를 늘려도 이미 제출한 과제 화면의 내용이 바뀌면 안 되기 때문이다.
+도시 목록은 두 벌이다. 과제 화면은 `src/data/cityCoords.js`의 여섯 곳을 보고, 메인홈과 최종본은 `src/data/heroCities.js`의 스무 곳을 본다. 나눠 둔 이유는 메인홈에서 도시를 늘려도 이미 제출한 과제 화면의 내용이 바뀌면 안 되기 때문이다. 누적본은 새 내용을 반영하는 자리라 스무 곳 쪽에 붙였다. 스무 곳 쪽에는 좌표 말고 사진 주소와 사진에 찍힌 명소 이름도 함께 들어 있다.
 
 ## 메인홈
 
 `/`는 도시 사진 카드가 3D 구 위에서 도는 화면이다. 카드 한 장이 도시 하나다. 사진 위에 지금 기온이 얹히고 카드를 누르면 그 도시 상세로 넘어간다.
 
-들어오면 카드가 평면 링으로 깔렸다가 중앙으로 빨려 들어간 뒤 구로 퍼진다. 그다음부터는 천천히 돌고 마우스를 옮기면 그쪽으로 회전이 가감속된다. 기온은 스무 곳을 한꺼번에 받아 오는데, 다 올 때까지 기다리지 않고 사진과 도시명으로 먼저 그린 뒤 도착하는 대로 채운다.
+들어오면 카드가 평면 링으로 깔렸다가 중앙으로 빨려 들어간 뒤 구로 퍼진다. 그다음부터는 천천히 돈다. 잡고 끌면 끈 만큼 돌아가고, 손을 떼면 관성으로 잦아들다가 제 속도로 돌아온다. 위아래로 기울이는 각도에는 상한을 걸어 뒀다. 처음에는 31도에서 끊었는데 그러니 세로로는 거의 안 도는 것처럼 느껴져서 69도까지 열었다. 90도까지 열지 않은 것은 그 각도가 구의 극을 정면으로 보는 자리여서다. 조금만 더 가면 북극이 화면 아래로 내려가 위아래가 뒤집힌다. 가만히 둘 때 얹히는 흔들림은 기운 만큼 진폭이 줄어서 둘을 더해도 69도를 넘지 않는다.
+
+처음에는 마우스를 올려 둔 방향으로 회전이 가감속되게 만들었다. 커서를 가만히 둬도 화면이 계속 흔들려서 카드를 겨냥하기 어려웠다. 끌어서 돌리는 쪽으로 바꾸고 나니 원하는 카드를 원하는 자리에 세울 수 있다. 대신 끌다 손을 뗀 것과 카드를 누른 것을 갈라야 해서 누른 지점에서 5픽셀 안쪽으로 끝났을 때만 클릭으로 친다.
+
+카드 사진은 처음에 picsum.photos에서 랜덤으로 받았다. 도시 이름과 사진이 아무 상관이 없어서 서울 카드에 낯선 숲 사진이 붙는 식이었다. 지금은 위키미디어 커먼즈에 올라온 그 지역 명소 사진을 500px 썸네일로 가져다 쓰고 도시마다 `place` 필드를 둬서 사진 밑에 찍힌 곳 이름이 붙는다. 서울은 경복궁 광화문, 부산은 해운대, 제주는 성산일출봉이다.
+
+원래는 도시 문서의 대표 이미지를 쓰려고 했는데 쓸 수 없는 것이 많았다. 광주, 대전, 울산, 포항, 여수, 창원은 대표 이미지가 지도 그림이고 대구, 목포, 통영은 여러 장을 이어 붙인 콜라주다. 카드에 올려 보니 무엇을 찍은 사진인지 알 수 없어서 명소 문서 쪽으로 갈아탔다. 대전은 그렇게 고른 사진이 커먼즈가 아니라 한국어 위키에 직접 올라간 파일이라 비자유 저작물일 수 있어 장태산으로 한 번 더 바꿨다.
+
+사진은 가로세로 비율이 제각각인데 스프라이트는 정사각이다. 그냥 붙이면 세로로 긴 사진이 옆으로 늘어난다. 텍스처의 `repeat`과 `offset`으로 긴 쪽을 잘라 내고 가운데 정사각만 쓴다.
+
+기온은 스무 곳을 한꺼번에 띄우는데, 다 올 때까지 기다리지 않고 사진과 도시명으로 먼저 그린 뒤 도착하는 대로 채운다. 메인홈과 최종본은 같은 스토어를 본다. 따로 뒀다가 같은 스무 곳을 두 번씩 받아 오는 것을 보고 합쳤는데, 합치고 나서 한 번 더 걸렸다. 메인홈은 `loadStream`을 부르고 최종본은 `loadAll`을 불렀던 탓이다. `loadStream`이 `requested`를 켜 두면 최종본의 `onMounted`가 `loadAll`을 건너뛴다. 그래서 최종본 목록에는 스트림으로 들어온 만큼만 남고 받아 온 시각도 빈 채였다. 지금은 두 화면이 `loadStream` 하나를 부른다. `loadAll`은 다시 불러오기 버튼 전용으로 남겼고 목록을 통째로 갈아 끼울 때 켜 둔 즐겨찾기가 날아가던 것도 같이 고쳤다.
+
+두 화면이 너무 따로 놀아서 이어 붙인 것도 있다. 최종본 카드와 상세 화면이 스피어와 같은 사진을 쓰고 메인홈에는 같은 스토어를 읽는 요약 줄을 붙였다. 도착한 도시 수와 평균 기온, 가장 더운 곳, 받아 온 시각이 거기 뜬다. 숫자가 한 출처에서 나오니 구에서 본 값과 목록에서 본 값이 어긋나지 않는다. 서로를 가리키는 링크도 넣어서 구에서 목록으로, 목록에서 구로 오갈 수 있다.
 
 3D 스피어는 Three.js로 만들었다. 강의에서 다루지 않은 라이브러리라 AI 도움을 받았다.
+
+## 화면 테마
+
+상단 색인 오른쪽에 시스템, 라이트, 다크 세 버튼을 뒀다. 시스템은 브라우저 설정을 그대로 따라가고 쓰는 도중에 설정을 바꿔도 화면이 같이 바뀐다. 직접 고른 값은 localStorage에 남아서 다음에 들어와도 유지된다.
+
+색은 `src/assets/base.css` 한 곳에서만 정하고 화면 파일은 거기 이름을 가져다 쓴다. 처음에는 스캐폴딩이 넣어 둔 `prefers-color-scheme` 블록만 살아 있어서 브라우저가 다크면 배경만 검어지고 카드는 흰색 그대로였다. 화면마다 색을 직접 박아 둔 탓이다.
+
+`index.html`에 짧은 스크립트를 하나 넣어 앱이 뜨기 전에 테마를 먼저 건다. 이게 없으면 저장해 둔 값과 브라우저 설정이 어긋날 때 첫 프레임에 반대 색이 한 번 번쩍인다. Element Plus는 자기 색을 `html.dark`에서 찾기 때문에 스토어가 그 클래스도 같이 토글한다.
 
 ## 트러블슈팅
 
 `/troubleshooting`은 강의를 들으며 막혔던 자리와 푼 방법을 Day별로 모은 곳이다. 데이터는 `src/data/troubleshootingLog.js`에 있다.
 
 커밋 히스토리와 코드에 남은 주석에서 확인한 것만 적었다. 흔적을 찾지 못한 날은 비워 뒀고 아직 못 고친 것도 그대로 뒀다. 본문에 적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
-
-## 실행에 필요한 키
-
-과제 6과 7, 최종본, Axios 실습은 OpenWeatherMap 키가 있어야 돈다. `.env.example`을 복사해 `.env.local`을 만들고 본인 키를 넣는다. `.env.local`은 gitignore 대상이라 저장소에 올라가지 않는다.
-
-```
-VITE_OPENWEATHER_API_KEY=발급받은_키
-```
 
 ## 실습 내용
 
@@ -151,7 +208,7 @@ Slot이 넘기는 것은 마크업 자체다. props로 데이터를 내려보내
 
 #### 과제 4: Weather Router (p196)
 
-`src/views/exercise/ex4/` 아래 화면 세 개와 `src/router/index.js`
+`src/views/lessons/exercise/ex4/` 아래 화면 세 개와 `src/router/index.js`
 
 한 페이지에 쌓아 두던 화면을 전부 경로로 떼어냈다. `App.vue`는 상단 색인과 `router-view`만 남긴 껍데기로 줄였다.
 
@@ -183,7 +240,7 @@ Frequent Mistakes에서 짚은 것은 구조분해다. 스토어를 그냥 구�
 
 #### 과제 5: Weather Store (p212)
 
-`src/stores/configStore.js`와 `src/views/exercise/ex5/` 아래 화면 세 개
+`src/stores/configStore.js`와 `src/views/lessons/exercise/ex5/` 아래 화면 세 개
 
 단위 하나를 스토어로 올린 과제다. `configStore`는 단위를 담는다. state는 `unit`이고 초기값은 celsius다. getter `unitSymbol`은 현재 단위에 맞는 기호를 내주고, action `toggleUnit`이 섭씨와 화씨를 오간다. 화면 쪽에서는 `UnitToggler.vue`가 현재 단위를 보여주고 바꾸는 버튼이 되어 Navigation Bar 옆에 붙었다.
 
@@ -224,7 +281,7 @@ Fetch는 설치가 필요 없다. 대신 JSON 변환과 에러 처리를 손으�
 
 #### 과제 6: Weather Axios (p230)
 
-`src/api/weatherApi.js`와 `src/stores/liveWeatherStore.js`, `src/views/exercise/ex6/` 아래 화면 세 개
+`src/api/weatherApi.js`와 `src/stores/liveWeatherStore.js`, `src/views/lessons/exercise/ex6/` 아래 화면 세 개
 
 Mock Data를 걷어내고 OpenWeatherMap에서 실제 관측값을 받아 온다. 도시 여섯 곳의 좌표는 `src/data/cityCoords.js`에 적어 뒀다. `axios.create`로 baseURL과 공통 파라미터를 인스턴스에 걸어 두면 호출부는 경로와 좌표만 넘기면 된다. 여섯 도시는 `axios.all`로 한꺼번에 요청하는데, 하나씩 기다리면 그만큼 느려지기 때문이다.
 
@@ -257,7 +314,7 @@ UI 라이브러리는 Button과 Input, Dialog 같은 공통 부품을 컴포넌�
 
 #### 과제 7: Weather UI Library (p249)
 
-`src/views/exercise/ex7/` 아래 화면 세 개와 Element Plus 부품 두 개
+`src/views/lessons/exercise/ex7/` 아래 화면 세 개와 Element Plus 부품 두 개
 
 과제 6의 실시간 데이터 화면을 Element Plus로 다시 그렸다. 국내 점유율과 낮은 학습 난이도를 보고 고른 라이브러리다.
 
