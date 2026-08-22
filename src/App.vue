@@ -5,8 +5,8 @@ import { useThemeStore } from './stores/themeStore.js'
 
 const menus = [
   { path: '/', label: '메인홈' },
-  { path: '/lessons', label: '실습 아카이브' },
   { path: '/lessons/final', label: '최종본' },
+  { path: '/lessons', label: '실습 아카이브' },
   { path: '/troubleshooting', label: '트러블슈팅' },
 ]
 

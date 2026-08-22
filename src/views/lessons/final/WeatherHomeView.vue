@@ -3,6 +3,7 @@ import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { ElMessage } from 'element-plus'
+import PageHero from '../../../components/home/PageHero.vue'
 import ElWeatherSubNav from '../../../components/exercise/ElWeatherSubNav.vue'
 import ElWeatherCard from '../../../components/exercise/ElWeatherCard.vue'
 import { useFinalWeatherStore } from '../../../stores/finalWeatherStore.js'
@@ -25,16 +26,16 @@ const {
   loadedAt,
 } = storeToRefs(live)
 
+// 메인홈 스피어와 같은 함수를 부른다. 스피어를 먼저 봤다면 이미 받아 둔 목록이 그대로 뜨고,
+// 여기로 바로 들어왔다면 여기서 처음 받는다
 onMounted(() => {
-  if (live.cityList.length === 0) {
-    live.loadAll()
-  }
+  live.loadStream()
 })
 
 const reload = async () => {
   await live.loadAll()
   if (live.errorMessage === '') {
-    ElMessage.success('여섯 도시의 실시간 날씨를 다시 받아 왔습니다.')
+    ElMessage.success('스무 도시의 실시간 날씨를 다시 받아 왔습니다.')
   } else {
     ElMessage.error(live.errorMessage)
   }
@@ -52,10 +53,18 @@ const toggleFavorite = (city) => {
 
 <template>
   <div class="weather-home-view">
-    <h1>⛅ 최종본: 날씨 (Element Plus)</h1>
-    <hr />
+    <PageHero
+      eyebrow="최종본"
+      title="스무 도시 날씨 대시보드"
+      lead="배운 것을 순서대로 얹어 온 누적본이다. 메인홈 스피어와 같은 스무 곳을 같은 스토어로 본다."
+    />
 
     <ElWeatherSubNav base-path="/lessons/final" />
+
+    <p class="from-sphere">
+      카드를 구 위에서 돌려 보려면 <router-link to="/">메인홈 스피어</router-link>로 간다. 같은
+      스무 곳이라 여기서 받아 둔 기온이 그대로 얹힌다.
+    </p>
 
     <el-card class="search-card">
       <template #header>도시 검색</template>
@@ -96,7 +105,7 @@ const toggleFavorite = (city) => {
       <el-descriptions-item label="즐겨찾기">{{ favoriteCount }}곳</el-descriptions-item>
     </el-descriptions>
 
-    <el-skeleton v-if="isLoading" :rows="6" animated />
+    <el-skeleton v-if="isLoading && filteredList.length === 0" :rows="6" animated />
 
     <el-empty v-else-if="filteredList.length === 0" description="검색 결과와 일치하는 도시가 없습니다." />
 
@@ -122,13 +131,23 @@ const toggleFavorite = (city) => {
   margin-bottom: 40px;
 }
 
+.page-hero {
+  margin-bottom: 24px;
+}
+
+.from-sphere {
+  margin: 0 0 16px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
 .search-card {
   margin-bottom: 16px;
 }
 
 .loaded-at {
   margin: 10px 0 0;
-  color: #909399;
+  color: var(--color-text-muted);
   font-size: 13px;
 }
 

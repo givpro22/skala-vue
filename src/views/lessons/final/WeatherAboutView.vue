@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router'
+import PageHero from '../../../components/home/PageHero.vue'
 import ElWeatherSubNav from '../../../components/exercise/ElWeatherSubNav.vue'
 
 const router = useRouter()
@@ -7,15 +8,16 @@ const router = useRouter()
 
 <template>
   <div class="weather-about-view">
-    <h1>⛅ 최종본: 서비스 소개</h1>
-    <hr />
+    <PageHero
+      eyebrow="최종본"
+      title="서비스 소개"
+      lead="화면부터 상태와 경로, 통신, UI까지 강의를 따라가며 무엇을 얹었는지 적어 둔다."
+    />
 
     <ElWeatherSubNav base-path="/lessons/final" />
 
     <el-card>
-      <template #header>서비스 소개</template>
-
-      <p>강의에서 배운 것을 순서대로 얹어 온 누적본이다.</p>
+      <template #header>쌓아 온 순서</template>
 
       <el-timeline>
         <el-timeline-item timestamp="화면" placement="top">
@@ -45,5 +47,9 @@ const router = useRouter()
 <style scoped>
 .weather-about-view {
   margin-bottom: 40px;
+}
+
+.page-hero {
+  margin-bottom: 24px;
 }
 </style>
