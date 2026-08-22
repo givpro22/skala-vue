@@ -232,7 +232,7 @@ export const troubleshootingDays = [
         fix: '위키백과 API로 도시별 사진을 뽑아 URL을 박았다. 처음에는 도시 문서(서울특별시, 광주광역시 같은 것)의 대표 이미지를 썼는데 광주, 대전, 울산, 포항, 여수, 창원은 지도 그림이 나오고 대구, 목포, 통영은 사진 여러 장을 이어 붙인 콜라주가 나왔다. 행정구역 문서의 대표 이미지가 사진이라는 보장이 없다. 명소 문서(무등산, 팔공산, 유달산)로 갈아타서 스무 곳을 다시 뽑았다. 대전은 한밭수목원 사진이 커먼즈가 아니라 한국어 위키 로컬 업로드라 비자유 저작물일 수 있어서 커먼즈에 있는 장태산으로 한 번 더 바꿨다.',
         learned:
           '자리채움을 넣을 때는 주석 말고 다시 볼 곳에 적어 둔다. 코드 옆 주석은 그 파일을 다시 열 일이 없으면 안 보인다. 위키 이미지는 URL이 /wikipedia/commons/인지 본다. /wikipedia/ko/면 그 언어판에만 올라온 파일이라 재사용 조건이 다르다.',
-        commits: [],
+        commits: ['d52a5cc'],
         files: ['src/data/heroCities.js'],
         resolved: true,
       },
@@ -246,7 +246,7 @@ export const troubleshootingDays = [
         code: "loader.load(city.photo, cropToSquare, undefined, () => {\n  console.error('도시 사진 로드 실패:', city.name, city.photo)\n})",
         learned:
           '값을 바꿨으면 바꾼 값으로 다시 확인한다. 한 번 통과한 확인은 그 값에 대한 것이지 그 코드에 대한 것이 아니다. 화면이 비었는데 콘솔이 깨끗하면 아무 일도 안 일어난 게 아니라 아무도 말을 안 하는 것일 수 있다. 조용히 실패하는 로더는 콜백을 붙여 말하게 만든다.',
-        commits: [],
+        commits: ['d52a5cc'],
         files: ['src/data/heroCities.js', 'src/components/home/SphereHero.vue'],
         resolved: true,
       },
@@ -259,7 +259,7 @@ export const troubleshootingDays = [
         fix: '텍스처를 입힐 때 repeat과 offset으로 긴 쪽을 잘라 내고 가운데 정사각만 쓰게 했다. 캔버스에 다시 그려서 자르는 방법도 있는데 그러면 사진 스무 장을 전부 한 번 더 그려야 한다.',
         code: 'texture.repeat.set(height / width, 1)\ntexture.offset.set((1 - height / width) / 2, 0)',
         learned: '이미지를 손대기 전에 텍스처 옵션부터 본다. 잘라 쓰는 기능이 재질 쪽에 이미 있다.',
-        commits: [],
+        commits: ['d52a5cc'],
         files: ['src/components/home/SphereHero.vue'],
         resolved: true,
       },
@@ -272,7 +272,7 @@ export const troubleshootingDays = [
         fix: '두 화면이 loadStream 하나를 부르게 합쳤다. loadAll은 다시 불러오기 버튼 전용으로 남겼다.',
         learned:
           '중복 요청을 막는 깃발을 진입점 여럿이 나눠 쓰면 한쪽이 켠 깃발이 다른 쪽의 초기화를 막는다. 증상이 데이터가 아니라 화면 흐름으로 보여서 원인을 늦게 찾았다. 화면 하나만 열어 보면 재현되지 않는다.',
-        commits: [],
+        commits: ['78cafa6'],
         files: [
           'src/stores/finalWeatherStore.js',
           'src/views/lessons/final/WeatherHomeView.vue',
@@ -289,7 +289,7 @@ export const troubleshootingDays = [
         code: 'favorite: favorites[weather.id] === true',
         learned:
           '서버가 모르는 값을 목록 항목에 얹어 뒀으면 목록을 갈아 끼울 때 그 값도 같이 날아간다.',
-        commits: [],
+        commits: ['78cafa6'],
         files: ['src/stores/finalWeatherStore.js'],
         resolved: true,
       },
@@ -301,7 +301,7 @@ export const troubleshootingDays = [
         fix: '.env와 .env.*를 넣고 !.env.example로 예제만 예외로 뺐다. git log --all -- .env로 지금까지 올라간 적이 없는 것도 같이 확인했다.',
         learned:
           '무시되고 있을 거라고 짐작한 파일은 한 번 확인한다. 이미 올라간 뒤라면 무시 목록에 넣어도 늦다.',
-        commits: [],
+        commits: ['f86e1ae'],
         files: ['.gitignore'],
         resolved: true,
       },
