@@ -37,3 +37,8 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# 로컬 환경 변수 (API 키)
+.env
+.env.*
+!.env.example
