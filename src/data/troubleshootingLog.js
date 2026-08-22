@@ -1,13 +1,5 @@
 export const troubleshootingDays = [
   {
-    day: 1,
-    label: 'Day 1',
-    date: '2026-08-18',
-    topic: '프로젝트 생성, 반응형 데이터, v-bind',
-    note: '커밋과 README에서 막혔던 흔적을 찾지 못했다.',
-    items: [],
-  },
-  {
     day: 2,
     label: 'Day 2',
     date: '2026-08-19',

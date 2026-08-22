@@ -2,9 +2,8 @@
 import { ref, computed } from 'vue'
 import { troubleshootingDays } from '../data/troubleshootingLog.js'
 
-const openDays = ref(
-  troubleshootingDays.filter((entry) => entry.items.length > 0).map((entry) => `day-${entry.day}`),
-)
+// 다 펼친 채로 열면 제목이 안 보이고 본문부터 쏟아진다. 접어 두고 볼 것만 펴게 한다
+const openDays = ref([])
 
 const totalCount = computed(() =>
   troubleshootingDays.reduce((sum, entry) => sum + entry.items.length, 0),
@@ -23,7 +22,7 @@ const openCount = computed(() =>
     <h1>트러블슈팅 기록</h1>
 
     <p class="intro">
-      막혔던 지점과 어떻게 풀었는지를 날짜별로 모았다. 앞의 넷은 강의를 들은 날이고, 마지막 하나는
+      막혔던 지점과 어떻게 풀었는지를 날짜별로 모았다. 앞의 셋은 강의를 들은 날이고, 마지막 하나는
       강의가 끝난 뒤 저장소를 포트폴리오로 묶으면서 겪은 것이라 Day 번호를 붙이지 않았다. 커밋
       히스토리와 코드에 남은 주석에서 확인한 것만 적었고, 흔적을 찾지 못한 날은 비워 뒀다. 본문에
       적힌 주소는 그날 쓰던 것이라 지금 아카이브 주소와 다를 수 있다.
