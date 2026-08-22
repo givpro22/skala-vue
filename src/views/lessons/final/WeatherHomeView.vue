@@ -35,7 +35,7 @@ onMounted(() => {
 const reload = async () => {
   await live.loadAll()
   if (live.errorMessage === '') {
-    ElMessage.success('스무 도시의 실시간 날씨를 다시 받아 왔습니다.')
+    ElMessage.success('20개 도시의 실시간 날씨를 다시 받아 왔습니다.')
   } else {
     ElMessage.error(live.errorMessage)
   }
@@ -55,15 +55,15 @@ const toggleFavorite = (city) => {
   <div class="weather-home-view">
     <PageHero
       eyebrow="최종본"
-      title="스무 도시 날씨 대시보드"
-      lead="배운 것을 순서대로 얹어 온 누적본이다. 메인홈 스피어와 같은 스무 곳을 같은 스토어로 본다."
+      title="전국 20개 도시 날씨 대시보드"
+      lead="배운 것을 순서대로 얹어 온 누적본이다. 메인홈 스피어와 같은 20개 도시를 같은 스토어로 본다."
     />
 
     <ElWeatherSubNav base-path="/lessons/final" />
 
     <p class="from-sphere">
       카드를 구 위에서 돌려 보려면 <router-link to="/">메인홈 스피어</router-link>로 간다. 같은
-      스무 곳이라 여기서 받아 둔 기온이 그대로 얹힌다.
+      20개 도시라 여기서 받아 둔 기온이 그대로 얹힌다.
     </p>
 
     <el-card class="search-card">

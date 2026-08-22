@@ -26,7 +26,7 @@ const shortcuts = [
   <section class="main-home">
     <PageHero
       eyebrow="SKALA Vue.js"
-      title="도시 스무 곳의 지금 날씨"
+      title="전국 20개 도시의 지금 날씨"
       lead="카드 한 장이 도시 하나다. 구를 잡고 끌면 돌아가고, 카드를 누르면 그 도시의 상세 화면으로 간다."
     />
 
@@ -34,7 +34,7 @@ const shortcuts = [
 
     <router-link to="/lessons/final" class="hero-cta">
       <span class="cta-text">
-        <strong>스무 곳을 목록으로 더 쉽게 보기</strong>
+        <strong>20개 도시를 목록으로 더 쉽게 보기</strong>
         <span>구를 돌리지 않고 한 화면에서 훑는다. 도시를 이름으로 찾고 즐겨찾기를 켤 수 있다</span>
       </span>
       <span class="cta-arrow" aria-hidden="true">→</span>
@@ -93,7 +93,7 @@ const shortcuts = [
   margin-bottom: -12px;
 }
 
-/* 구를 돌려 보다 스무 곳을 훑고 싶어진 시선이 처음 닿는 자리라 아래 바로가기와 무게를 다르게 준다 */
+/* 구를 돌려 보다 도시를 훑고 싶어진 시선이 처음 닿는 자리라 아래 바로가기와 무게를 다르게 준다 */
 .hero-cta {
   display: flex;
   align-items: center;
