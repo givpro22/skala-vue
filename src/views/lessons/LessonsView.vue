@@ -188,7 +188,10 @@ const groups = [
     <p class="intro">SKALA Vue.js 강의에서 만든 화면을 날짜순으로 모아 뒀다.</p>
 
     <nav class="day-nav">
-      <a v-for="group in groups" :key="group.id" :href="`#${group.id}`">{{ group.title }}</a>
+      <a v-for="group in groups" :key="group.id" :href="`#${group.id}`">
+        {{ group.title }}
+        <span class="count">{{ group.items.length }}</span>
+      </a>
     </nav>
 
     <section v-for="group in groups" :id="group.id" :key="group.id" class="day-group">
@@ -234,6 +237,15 @@ const groups = [
 .day-nav a {
   color: var(--color-text-soft);
   text-decoration: none;
+}
+
+.count {
+  margin-left: 4px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background-color: var(--color-surface-mute);
+  color: var(--color-text-muted);
+  font-size: 12px;
 }
 
 .day-group {
