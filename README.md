@@ -11,7 +11,6 @@ npm run dev
 
 http://localhost:5173
 
-Node는 20.19 이상이나 22.12 이상이 필요하다. `package.json`의 engines에 적어 뒀다. 배포용으로 묶을 때는 `npm run build`, 묶은 결과를 로컬에서 열어 볼 때는 `npm run preview`를 쓴다.
 
 ## 실행에 필요한 키
 
